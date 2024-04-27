@@ -5,6 +5,7 @@ import { ApolloWrapper } from "@/lib/apollo/ApolloClient";
 import { NextAuthProvider, authOptions } from "@/lib/next-auth";
 import { getServerSession } from "next-auth";
 import { RenderLayout } from "@/layouts/renderLayout";
+import dynamic from "next/dynamic";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,13 +20,18 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession(authOptions);
-
+  const AntConfigProvider = dynamic(
+    () => import("@/lib/antd/index").then((mod) => mod.default),
+    { ssr: false }
+  );
   return (
     <html lang="en">
       <body className={inter.className}>
         <ApolloWrapper>
           <NextAuthProvider session={session}>
-            <RenderLayout>{children}</RenderLayout>
+            <AntConfigProvider>
+              <RenderLayout>{children}</RenderLayout>
+            </AntConfigProvider>
           </NextAuthProvider>
         </ApolloWrapper>
       </body>
