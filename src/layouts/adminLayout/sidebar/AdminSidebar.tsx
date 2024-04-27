@@ -1,17 +1,16 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 // eslint-disable-next-line import/no-named-as-default
-import styled from 'styled-components';
-import { MenuUnfoldOutlined } from '@ant-design/icons';
-import { Layout, Menu as AntMenu, Image } from 'antd';
-import { ButtonIcon } from '@/components';
-import { NavLink } from '@/layouts/types';
-import { CanViewNavLink } from '@/layouts/common/acl/CanViewNavLink';
-import { AdminSidebarMenus } from '@/navigation/AdminSidebarMenus';
+import styled from "styled-components";
+import { MenuUnfoldOutlined } from "@ant-design/icons";
+import { Layout, Menu as AntMenu, Image } from "antd";
+import { ButtonIcon } from "@/components";
+import { NavLink } from "@/layouts/types";
 
-import { IoCloseOutline } from 'react-icons/io5';
-import { usePathname } from 'next/navigation';
+import { IoCloseOutline } from "react-icons/io5";
+import { usePathname } from "next/navigation";
+import { AdminSidebarMenus } from "@/navigation/AdminSidebarMenus";
 
 const { Sider } = Layout;
 
@@ -102,18 +101,15 @@ const Menu = styled(AntMenu)`
 export function AdminSidebar({ className, collapsed, setCollapsed }: Props) {
   const pathname = usePathname();
 
-  const _split = pathname.split('/');
+  const _split = pathname.split("/");
   const _pathname = _split.length > 2 ? `/${_split[1]}/${_split[2]}` : pathname;
   const sidebarMenus = AdminSidebarMenus();
   const adminNavItems = sidebarMenus
-    .map((item) => {
-      const menus = CanViewNavLink({ navLink: item }) as NavLink;
-      return menus;
-    })
+    .map((item) => item)
     .filter((item) => item !== null)
     .map((_menu) => ({
       key: _menu?.key,
-      label: _menu?.label || '',
+      label: _menu?.label || "",
       icon: _menu?.icon,
       onClick: _menu?.onClick,
     }));
@@ -121,7 +117,7 @@ export function AdminSidebar({ className, collapsed, setCollapsed }: Props) {
   return (
     <Sider
       trigger={null}
-      className={`${className ? className : ''} bg-white px-[15px]`}
+      className={`${className ? className : ""} bg-white px-[15px]`}
       width="250px"
       collapsible
       collapsed={collapsed}
@@ -154,7 +150,7 @@ export function AdminSidebar({ className, collapsed, setCollapsed }: Props) {
       <Menu
         mode="inline"
         // defaultSelectedKeys={['1']}
-        className={`${collapsed ? 'collapsed' : ''}`}
+        className={`${collapsed ? "collapsed" : ""}`}
         selectedKeys={[pathname, _pathname]}
         items={adminNavItems}
       />
