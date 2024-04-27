@@ -104,15 +104,7 @@ export function AdminSidebar({ className, collapsed, setCollapsed }: Props) {
   const _split = pathname.split("/");
   const _pathname = _split.length > 2 ? `/${_split[1]}/${_split[2]}` : pathname;
   const sidebarMenus = AdminSidebarMenus();
-  const adminNavItems = sidebarMenus
-    .map((item) => item)
-    .filter((item) => item !== null)
-    .map((_menu) => ({
-      key: _menu?.key,
-      label: _menu?.label || "",
-      icon: _menu?.icon,
-      onClick: _menu?.onClick,
-    }));
+  const adminNavItems = sidebarMenus;
 
   return (
     <Sider

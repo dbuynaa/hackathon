@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Popover } from 'antd';
-import dayjs from 'dayjs';
-import { Avatar, Typography } from '@/components';
+import React, { useState, useEffect } from "react";
+import { Popover } from "antd";
+import dayjs from "dayjs";
+import { Avatar, Typography } from "@/components";
 import {
   IoBookmark,
   IoChevronDownOutline,
@@ -13,14 +13,12 @@ import {
   IoPersonOutline,
   IoBriefcase,
   IoHome,
-} from 'react-icons/io5';
-import Link from 'next/link';
-import { Routes } from '@/config/routes';
-import { Can } from '@/layouts/common/acl/Can';
-import { usePathname } from 'next/navigation';
-import { sourceFile } from '@/utils/file/sourceFile';
-import { useSession, signOut } from 'next-auth/react';
-import { MdPostAdd } from 'react-icons/md';
+} from "react-icons/io5";
+import Link from "next/link";
+import { Routes } from "@/config/routes";
+import { usePathname } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
+import { MdPostAdd } from "react-icons/md";
 
 type Props = {
   setCompanyUpdateModal?: (_e: boolean) => void;
@@ -29,21 +27,21 @@ type Props = {
 export const HeaderTopProfile = (props: Props) => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
-  const [dateTimeDisplay, setDateTimeDisplay] = useState('');
+  const [dateTimeDisplay, setDateTimeDisplay] = useState("");
 
   const { setCompanyUpdateModal } = props;
 
   const pathName = usePathname();
-  const isAdmin = pathName.startsWith('/admin');
+  const isAdmin = pathName.startsWith("/admin");
   useEffect(() => {
     const today = dayjs();
     const curHr = today.hour();
     if (4 < curHr && curHr < 12) {
-      setDateTimeDisplay('おはようございます ☀️');
+      setDateTimeDisplay("おはようございます ☀️");
     } else if (12 <= curHr && curHr < 18) {
-      setDateTimeDisplay('こんにちは ☀️');
+      setDateTimeDisplay("こんにちは ☀️");
     } else if ((18 <= curHr && curHr < 24) || (0 <= curHr && curHr < 4)) {
-      setDateTimeDisplay('こんばんは ☾');
+      setDateTimeDisplay("こんばんは ☾");
     }
   }, []);
 
@@ -56,7 +54,7 @@ export const HeaderTopProfile = (props: Props) => {
           className="w-[264px] flex flex-col p-tiny gap-sm"
         >
           <div className="flex flex-row gap-sm items-center">
-            <Avatar
+            {/* <Avatar
               shape="circle"
               src={
                 sourceFile({
@@ -66,10 +64,10 @@ export const HeaderTopProfile = (props: Props) => {
               icon={!session?.user?.image && <IoPersonOutline />}
               className="bg-brand "
               size="large"
-            />
+            /> */}
             <div className="flex flex-col gap-xxs">
               <Typography className="text-secondary" base="Caption">
-                {dateTimeDisplay || 'おはようございます ☀️'}
+                {dateTimeDisplay || "おはようございます ☀️"}
               </Typography>
               <Typography
                 className=" text-primary"
@@ -129,7 +127,7 @@ export const HeaderTopProfile = (props: Props) => {
           <div className="border-t border-secondary"></div>
           {/* 企業情報 */}
           {setCompanyUpdateModal && (
-            <Can I="read" an="Admin_Staff">
+            <>
               <Link
                 href={{}}
                 className="flex flex-row items-center justify-between"
@@ -155,7 +153,7 @@ export const HeaderTopProfile = (props: Props) => {
                 />
               </Link>
               <div className="border-t border-secondary"></div>
-            </Can>
+            </>
           )}
           {/* {setCompanyUpdateModal && (
             <div className="border-t border-secondary"></div>
@@ -163,7 +161,7 @@ export const HeaderTopProfile = (props: Props) => {
 
           {/* 管理画面 */}
           {!isAdmin && (
-            <Can I="read" a="Admin_Header">
+            <>
               <Link
                 href={Routes.Admin_Article.Index.route}
                 className="flex flex-row items-center justify-between xs:hidden"
@@ -186,11 +184,11 @@ export const HeaderTopProfile = (props: Props) => {
                 />
               </Link>
               <div className="border-t border-secondary xs:hidden"></div>
-            </Can>
+            </>
           )}
           {/* 投稿を作成 */}
           {!isAdmin && (
-            <Can I="create" a="Landing_Post">
+            <>
               <Link
                 href={`${Routes.Landing_Post.Create?.route}`}
                 className="flex flex-row items-center justify-between xs:hidden"
@@ -213,7 +211,7 @@ export const HeaderTopProfile = (props: Props) => {
                 />
               </Link>
               <div className="border-t border-secondary xs:hidden"></div>
-            </Can>
+            </>
           )}
           {/* お気に入り */}
           <Link
@@ -238,7 +236,7 @@ export const HeaderTopProfile = (props: Props) => {
           <Link
             href={Routes.Landing_Home.Index.route}
             className="flex flex-row items-center justify-between"
-            onClick={() => signOut({ callbackUrl: '/', redirect: true })}
+            onClick={() => signOut({ callbackUrl: "/", redirect: true })}
           >
             <div className="flex flex-row gap-xs2 items-center">
               <div className="w-[36px] h-[36px] bg-error-100 rounded-xl grid place-content-center">
@@ -257,18 +255,14 @@ export const HeaderTopProfile = (props: Props) => {
       }
       arrowContent={<>a</>}
       rootClassName="[&>.ant-popover-arrow]:left-[236px]"
-      trigger={['click', 'contextMenu']}
+      trigger={["click", "contextMenu"]}
       open={isOpen}
       onOpenChange={setIsOpen}
     >
       <div className="flex gap-xxs items-center">
         <Avatar
           shape="square"
-          src={
-            sourceFile({
-              fileKey: session?.user?.image,
-            })?.url
-          }
+          src={"https://i.pravatar.cc/300"}
           icon={!session?.user?.image && <IoPersonOutline />}
           className="bg-brand "
           size="default"
