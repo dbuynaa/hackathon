@@ -4,6 +4,7 @@ import "./globals.css";
 import { ApolloWrapper } from "@/lib/apollo/ApolloClient";
 import { NextAuthProvider, authOptions } from "@/lib/next-auth";
 import { getServerSession } from "next-auth";
+import { RenderLayout } from "@/layouts/renderLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,9 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ApolloWrapper>
-          <NextAuthProvider session={session}>{children}</NextAuthProvider>
+          <NextAuthProvider session={session}>
+            <RenderLayout>{children}</RenderLayout>
+          </NextAuthProvider>
         </ApolloWrapper>
       </body>
     </html>

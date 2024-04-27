@@ -1,26 +1,25 @@
-import React from 'react';
-import { FormInstance } from 'antd';
+import React from "react";
+import { FormInstance } from "antd";
 
 // eslint-disable-next-line import/no-named-as-default
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import 'react-quill/dist/quill.bubble.css';
-import 'react-quill/dist/quill.snow.css';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+import "react-quill/dist/quill.bubble.css";
+import "react-quill/dist/quill.snow.css";
 //@ts-ignore
-import quillEmoji from 'react-quill-emoji';
-import 'react-quill-emoji/dist/quill-emoji.css';
+import quillEmoji from "react-quill-emoji";
+import "react-quill-emoji/dist/quill-emoji.css";
 
-import dynamic from 'next/dynamic';
-import type ReactQuill from 'react-quill';
+import dynamic from "next/dynamic";
+import type ReactQuill from "react-quill";
 
 const QuillWrapper = dynamic(
   async () => {
-    const { default: RQ } = await import('react-quill');
+    const { default: RQ } = await import("react-quill");
     // eslint-disable-next-line react/display-name
     return ({ ...props }) => <RQ {...props} />;
   },
-  { ssr: false, loading: () => <p>Loading ...</p> },
+  { ssr: false, loading: () => <p>Loading ...</p> }
 ) as typeof ReactQuill;
 const { Quill } = QuillWrapper;
 
@@ -112,49 +111,49 @@ const StyledQuil = styled(QuillWrapper)`
   }
 
   .ql-header .ql-picker-label::before {
-    content: 'サイズ' !important;
+    content: "サイズ" !important;
   }
-  .ql-header .ql-picker-label[data-value='1']::before,
-  .ql-header .ql-picker-item[data-value='1']::before {
-    content: 'サイズ１' !important;
+  .ql-header .ql-picker-label[data-value="1"]::before,
+  .ql-header .ql-picker-item[data-value="1"]::before {
+    content: "サイズ１" !important;
   }
-  .ql-header .ql-picker-label[data-value='2']::before,
-  .ql-header .ql-picker-item[data-value='2']::before {
-    content: 'サイズ２' !important;
+  .ql-header .ql-picker-label[data-value="2"]::before,
+  .ql-header .ql-picker-item[data-value="2"]::before {
+    content: "サイズ２" !important;
   }
-  .ql-header .ql-picker-label[data-value='3']::before,
-  .ql-header .ql-picker-item[data-value='3']::before {
-    content: 'サイズ３' !important;
+  .ql-header .ql-picker-label[data-value="3"]::before,
+  .ql-header .ql-picker-item[data-value="3"]::before {
+    content: "サイズ３" !important;
   }
-  .ql-header .ql-picker-label[data-value='4']::before,
-  .ql-header .ql-picker-item[data-value='4']::before {
-    content: 'サイズ４' !important;
+  .ql-header .ql-picker-label[data-value="4"]::before,
+  .ql-header .ql-picker-item[data-value="4"]::before {
+    content: "サイズ４" !important;
   }
-  .ql-header .ql-picker-label[data-value='5']::before,
-  .ql-header .ql-picker-item[data-value='5']::before {
-    content: 'サイズ５' !important;
+  .ql-header .ql-picker-label[data-value="5"]::before,
+  .ql-header .ql-picker-item[data-value="5"]::before {
+    content: "サイズ５" !important;
   }
-  .ql-header .ql-picker-label[data-value='6']::before,
-  .ql-header .ql-picker-item[data-value='6']::before {
-    content: 'サイズ６' !important;
+  .ql-header .ql-picker-label[data-value="6"]::before,
+  .ql-header .ql-picker-item[data-value="6"]::before {
+    content: "サイズ６" !important;
   }
   .ql-snow .ql-picker.ql-header .ql-picker-item::before {
-    content: 'サイズ';
+    content: "サイズ";
   }
   .ql-snow .ql-tooltip::before {
-    content: 'リンク先のURL' !important;
+    content: "リンク先のURL" !important;
   }
   .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
-    content: 'OK' !important;
+    content: "OK" !important;
   }
   .ql-snow .ql-tooltip a.ql-action::after {
-    content: '編集' !important;
+    content: "編集" !important;
   }
   .ql-snow .ql-tooltip a.ql-remove::before {
-    content: '取り除く' !important;
+    content: "取り除く" !important;
   }
-  .ql-snow .ql-tooltip[data-mode='link']::before {
-    content: 'リンク先のURL:' !important;
+  .ql-snow .ql-tooltip[data-mode="link"]::before {
+    content: "リンク先のURL:" !important;
   }
 `;
 
@@ -167,12 +166,12 @@ const ReactQuillBuilder = ({
 }: ReactQuillCustomEditorProps) => {
   Quill?.register(
     {
-      'formats/emoji': quillEmoji?.EmojiBlot,
-      'modules/emoji-toolbar': quillEmoji?.ToolbarEmoji,
-      'modules/emoji-textarea': quillEmoji?.TextAreaEmoji,
-      'modules/emoji-shortname': quillEmoji?.ShortNameEmoji,
+      "formats/emoji": quillEmoji?.EmojiBlot,
+      "modules/emoji-toolbar": quillEmoji?.ToolbarEmoji,
+      "modules/emoji-textarea": quillEmoji?.TextAreaEmoji,
+      "modules/emoji-shortname": quillEmoji?.ShortNameEmoji,
     },
-    true,
+    true
   );
 
   return (
@@ -188,29 +187,29 @@ const ReactQuillBuilder = ({
         toolbar: {
           container: [
             [{ header: [1, 2, 3, 4, 5, 6] }],
-            [{ align: ['', 'center', 'right', 'justify'] }],
-            ['bold', 'italic', 'underline'],
+            [{ align: ["", "center", "right", "justify"] }],
+            ["bold", "italic", "underline"],
             [{ color: [] }, { background: [] }],
 
             // [{ size: [] }],
 
-            [{ list: 'ordered' }, { list: 'bullet' }],
-            ['link', 'image'],
-            ['clean'],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link", "image"],
+            ["clean"],
           ],
         },
-        'emoji-toolbar': true,
-        'emoji-textarea': true,
-        'emoji-shortname': true,
+        "emoji-toolbar": true,
+        "emoji-textarea": true,
+        "emoji-shortname": true,
       }}
       theme="snow"
-      value={value || ''}
+      value={value || ""}
       onChange={(_value, _, __, _editor) => {
         const _length = _editor.getLength();
         setLength && setLength(_length - 1);
         form.setFieldValue(field, _value);
       }}
-      placeholder={placeholder || ''}
+      placeholder={placeholder || ""}
     />
   );
 };

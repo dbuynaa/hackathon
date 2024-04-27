@@ -29,41 +29,62 @@ export type AuthVerify = {
 
 export type Category = {
   __typename?: 'Category';
+  code: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   nameEn: Scalars['String']['output'];
-  price: Scalars['String']['output'];
+  order: Scalars['String']['output'];
 };
 
 export type LoginInput = {
+  email: Scalars['String']['input'];
   password: Scalars['String']['input'];
-  phoneNumber: Scalars['String']['input'];
 };
 
 export type MeAuth = {
   __typename?: 'MeAuth';
+  email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   image?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
-  phoneNumber: Scalars['String']['output'];
   role?: Maybe<UserRoleEnum>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
+  ValidationDelete?: Maybe<Scalars['Boolean']['output']>;
   login?: Maybe<AuthVerify>;
   logout?: Maybe<Scalars['Boolean']['output']>;
+  productCreate?: Maybe<Product>;
+  productDelete?: Maybe<Scalars['Boolean']['output']>;
   refreshAccessToken?: Maybe<AuthVerify>;
   register?: Maybe<AuthVerify>;
   userCreate?: Maybe<User>;
   userDelete?: Maybe<Scalars['Boolean']['output']>;
-  userDeviceTokenUpsert?: Maybe<Scalars['Boolean']['output']>;
   userUpdate?: Maybe<User>;
+  validationCreate?: Maybe<Validation>;
+  vendorCreate?: Maybe<Vendor>;
+  vendorDelete?: Maybe<Scalars['Boolean']['output']>;
+};
+
+
+export type MutationValidationDeleteArgs = {
+  where: ValidationWhereUniqueInput;
 };
 
 
 export type MutationLoginArgs = {
   input: LoginInput;
+};
+
+
+export type MutationProductCreateArgs = {
+  input: ProductCreateInput;
+};
+
+
+export type MutationProductDeleteArgs = {
+  where: ProductWhereUniqueInput;
 };
 
 
@@ -82,43 +103,76 @@ export type MutationUserDeleteArgs = {
 };
 
 
-export type MutationUserDeviceTokenUpsertArgs = {
-  input: UserDeviceTokenInput;
-};
-
-
 export type MutationUserUpdateArgs = {
   id: Scalars['String']['input'];
   input: UserUpdateInput;
 };
 
-export type PostWhereUniqueInput = {
+
+export type MutationValidationCreateArgs = {
+  input: ValidationCreateInput;
+};
+
+
+export type MutationVendorCreateArgs = {
+  input: VendorCreateInput;
+};
+
+
+export type MutationVendorDeleteArgs = {
+  where: VendorWhereUniqueInput;
+};
+
+export type Product = {
+  __typename?: 'Product';
+  Vendor?: Maybe<Vendor>;
+  auditer?: Maybe<User>;
+  categories?: Maybe<Array<Maybe<Category>>>;
+  createdAt: Scalars['DateTime']['output'];
+  description: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  image: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+};
+
+export type ProductCreateInput = {
+  categories?: InputMaybe<Array<Scalars['String']['input']>>;
+  description: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
+  image: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  vendorId: Scalars['String']['input'];
+};
+
+export type ProductWhereUniqueInput = {
   id: Scalars['String']['input'];
 };
 
-export type Posts = {
-  __typename?: 'Posts';
+export type Products = {
+  __typename?: 'Products';
   count?: Maybe<Scalars['Int']['output']>;
-  data?: Maybe<Array<Post>>;
+  data?: Maybe<Array<Product>>;
 };
 
 export type Query = {
   __typename?: 'Query';
   categories?: Maybe<Array<Category>>;
   meAuth?: Maybe<MeAuth>;
-  post?: Maybe<Post>;
-  posts?: Maybe<Posts>;
+  product?: Maybe<Product>;
+  products?: Maybe<Products>;
   user?: Maybe<User>;
   users?: Maybe<Users>;
+  vendor?: Maybe<Vendor>;
+  vendors?: Maybe<Vendors>;
 };
 
 
-export type QueryPostArgs = {
-  where: PostWhereUniqueInput;
+export type QueryProductArgs = {
+  where: ProductWhereUniqueInput;
 };
 
 
-export type QueryPostsArgs = {
+export type QueryProductsArgs = {
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
 };
@@ -134,46 +188,57 @@ export type QueryUsersArgs = {
   take: Scalars['Int']['input'];
 };
 
+
+export type QueryVendorArgs = {
+  where: VendorWhereUniqueInput;
+};
+
+
+export type QueryVendorsArgs = {
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+};
+
 export type RegisterInput = {
+  email: Scalars['String']['input'];
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
-  phoneNumber: Scalars['String']['input'];
   role: UserRoleEnum;
 };
 
+export enum Status {
+  PENDING = 'PENDING',
+  UNVERIFIED = 'UNVERIFIED',
+  VERIFIED = 'VERIFIED'
+}
+
 export type User = {
   __typename?: 'User';
+  email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   name?: Maybe<Scalars['String']['output']>;
-  phoneNumber: Scalars['String']['output'];
   roleKey: Scalars['String']['output'];
 };
 
 export type UserCreateInput = {
+  email: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
   image?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  phoneNumber: Scalars['String']['input'];
+  password: Scalars['String']['input'];
   roleKey: UserRoleEnum;
-};
-
-export type UserDeviceTokenInput = {
-  deviceToken: Scalars['String']['input'];
-  deviceType?: InputMaybe<Scalars['String']['input']>;
-  deviceVersion?: InputMaybe<Scalars['String']['input']>;
-  instanceId?: InputMaybe<Scalars['String']['input']>;
-  isActive: Scalars['Boolean']['input'];
 };
 
 export enum UserRoleEnum {
   ADMIN = 'ADMIN',
-  DRIVER = 'DRIVER',
-  SELLER = 'SELLER'
+  MANAGER = 'MANAGER',
+  STAFF = 'STAFF'
 }
 
 export type UserUpdateInput = {
+  email?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  phoneNumber?: InputMaybe<Scalars['String']['input']>;
   roleKey?: InputMaybe<UserRoleEnum>;
 };
 
@@ -187,10 +252,58 @@ export type Users = {
   data?: Maybe<Array<User>>;
 };
 
-export type Post = {
-  __typename?: 'post';
+export type Validation = {
+  __typename?: 'Validation';
+  content: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  image?: Maybe<Scalars['String']['output']>;
+  productId?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
+};
+
+export type ValidationCreateInput = {
+  content: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
+  productId: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+};
+
+export type ValidationWhereUniqueInput = {
+  id: Scalars['String']['input'];
+};
+
+export type Validations = {
+  __typename?: 'Validations';
+  count?: Maybe<Scalars['Int']['output']>;
+  data?: Maybe<Array<Validation>>;
+};
+
+export type Vendor = {
+  __typename?: 'Vendor';
+  contact: Scalars['String']['output'];
+  email: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  status?: Maybe<Status>;
+};
+
+export type VendorCreateInput = {
+  contact: Scalars['String']['input'];
+  email: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
+  name: Scalars['String']['input'];
+  products?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type VendorWhereUniqueInput = {
+  id: Scalars['String']['input'];
+};
+
+export type Vendors = {
+  __typename?: 'Vendors';
+  count?: Maybe<Scalars['Int']['output']>;
+  data?: Maybe<Array<Vendor>>;
 };
 
 export type LoginMutationVariables = Exact<{
@@ -210,13 +323,26 @@ export type MeAuthQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeAuthQuery = { __typename?: 'Query', meAuth?: { __typename?: 'MeAuth', id: string, image?: string | null, name?: string | null, role?: UserRoleEnum | null } | null };
 
-export type PostsQueryVariables = Exact<{
+export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CategoriesQuery = { __typename?: 'Query', categories?: Array<{ __typename?: 'Category', name: string, nameEn: string, code: string, order: string }> | null };
+
+export type ProductsQueryVariables = Exact<{
   take: Scalars['Int']['input'];
   skip: Scalars['Int']['input'];
 }>;
 
 
-export type PostsQuery = { __typename?: 'Query', posts?: { __typename?: 'Posts', data?: Array<{ __typename?: 'post', title: string }> | null } | null };
+export type ProductsQuery = { __typename?: 'Query', products?: { __typename?: 'Products', count?: number | null, data?: Array<{ __typename?: 'Product', createdAt: any, description: string, id: string, image: string, name: string, auditer?: { __typename?: 'User', id: string, roleKey: string, name?: string | null, email: string } | null, categories?: Array<{ __typename?: 'Category', name: string, nameEn: string, order: string } | null> | null }> | null } | null };
+
+export type VendorsQueryVariables = Exact<{
+  take: Scalars['Int']['input'];
+  skip: Scalars['Int']['input'];
+}>;
+
+
+export type VendorsQuery = { __typename?: 'Query', vendors?: { __typename?: 'Vendors', count?: number | null, data?: Array<{ __typename?: 'Vendor', name: string, contact: string, email: string, status?: Status | null }> | null } | null };
 
 
 export const LoginDocument = gql`
@@ -329,41 +455,136 @@ export function useMeAuthLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeA
 export type MeAuthQueryHookResult = ReturnType<typeof useMeAuthQuery>;
 export type MeAuthLazyQueryHookResult = ReturnType<typeof useMeAuthLazyQuery>;
 export type MeAuthQueryResult = Apollo.QueryResult<MeAuthQuery, MeAuthQueryVariables>;
-export const PostsDocument = gql`
-    query Posts($take: Int!, $skip: Int!) {
-  posts(take: $take, skip: $skip) {
-    data {
-      title
-    }
+export const CategoriesDocument = gql`
+    query Categories {
+  categories {
+    name
+    nameEn
+    code
+    order
   }
 }
     `;
 
 /**
- * __usePostsQuery__
+ * __useCategoriesQuery__
  *
- * To run a query within a React component, call `usePostsQuery` and pass it any options that fit your needs.
- * When your component renders, `usePostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = usePostsQuery({
+ * const { data, loading, error } = useCategoriesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<CategoriesQuery, CategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CategoriesQuery, CategoriesQueryVariables>(CategoriesDocument, options);
+      }
+export function useCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CategoriesQuery, CategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CategoriesQuery, CategoriesQueryVariables>(CategoriesDocument, options);
+        }
+export type CategoriesQueryHookResult = ReturnType<typeof useCategoriesQuery>;
+export type CategoriesLazyQueryHookResult = ReturnType<typeof useCategoriesLazyQuery>;
+export type CategoriesQueryResult = Apollo.QueryResult<CategoriesQuery, CategoriesQueryVariables>;
+export const ProductsDocument = gql`
+    query Products($take: Int!, $skip: Int!) {
+  products(take: $take, skip: $skip) {
+    data {
+      auditer {
+        id
+        roleKey
+        name
+        email
+      }
+      categories {
+        name
+        nameEn
+        order
+      }
+      createdAt
+      description
+      id
+      image
+      name
+    }
+    count
+  }
+}
+    `;
+
+/**
+ * __useProductsQuery__
+ *
+ * To run a query within a React component, call `useProductsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProductsQuery({
  *   variables: {
  *      take: // value for 'take'
  *      skip: // value for 'skip'
  *   },
  * });
  */
-export function usePostsQuery(baseOptions: Apollo.QueryHookOptions<PostsQuery, PostsQueryVariables>) {
+export function useProductsQuery(baseOptions: Apollo.QueryHookOptions<ProductsQuery, ProductsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<PostsQuery, PostsQueryVariables>(PostsDocument, options);
+        return Apollo.useQuery<ProductsQuery, ProductsQueryVariables>(ProductsDocument, options);
       }
-export function usePostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostsQuery, PostsQueryVariables>) {
+export function useProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductsQuery, ProductsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<PostsQuery, PostsQueryVariables>(PostsDocument, options);
+          return Apollo.useLazyQuery<ProductsQuery, ProductsQueryVariables>(ProductsDocument, options);
         }
-export type PostsQueryHookResult = ReturnType<typeof usePostsQuery>;
-export type PostsLazyQueryHookResult = ReturnType<typeof usePostsLazyQuery>;
-export type PostsQueryResult = Apollo.QueryResult<PostsQuery, PostsQueryVariables>;
+export type ProductsQueryHookResult = ReturnType<typeof useProductsQuery>;
+export type ProductsLazyQueryHookResult = ReturnType<typeof useProductsLazyQuery>;
+export type ProductsQueryResult = Apollo.QueryResult<ProductsQuery, ProductsQueryVariables>;
+export const VendorsDocument = gql`
+    query Vendors($take: Int!, $skip: Int!) {
+  vendors(take: $take, skip: $skip) {
+    count
+    data {
+      name
+      contact
+      email
+      status
+    }
+  }
+}
+    `;
+
+/**
+ * __useVendorsQuery__
+ *
+ * To run a query within a React component, call `useVendorsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVendorsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVendorsQuery({
+ *   variables: {
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *   },
+ * });
+ */
+export function useVendorsQuery(baseOptions: Apollo.QueryHookOptions<VendorsQuery, VendorsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VendorsQuery, VendorsQueryVariables>(VendorsDocument, options);
+      }
+export function useVendorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VendorsQuery, VendorsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VendorsQuery, VendorsQueryVariables>(VendorsDocument, options);
+        }
+export type VendorsQueryHookResult = ReturnType<typeof useVendorsQuery>;
+export type VendorsLazyQueryHookResult = ReturnType<typeof useVendorsLazyQuery>;
+export type VendorsQueryResult = Apollo.QueryResult<VendorsQuery, VendorsQueryVariables>;

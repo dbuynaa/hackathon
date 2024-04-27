@@ -1,21 +1,20 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, message } from 'antd';
-import { AuthType, Props } from '../type';
+import { Form, message } from "antd";
+import { AuthType, Props } from "../type";
 import {
   CheckBoxInput,
   PasswordInput,
   TextInput,
   Button,
   Typography,
-} from '@/components';
-import { Yup } from '@/lib/yup';
+} from "@/components";
+import { Yup } from "@/lib/yup";
 
-import { IoPersonOutline } from 'react-icons/io5';
-import { Rule } from 'antd/es/form';
-import { getCsrfToken, signIn } from 'next-auth/react';
-import { GetServerSidePropsContext } from 'next';
-import { LoginInput } from '@/graphql/generated';
-import { useAlertStore } from '@/context/AlertModalProvider';
+import { IoPersonOutline } from "react-icons/io5";
+import { Rule } from "antd/es/form";
+import { getCsrfToken, signIn } from "next-auth/react";
+import { GetServerSidePropsContext } from "next";
+import { LoginInput } from "@/graphql/generated";
+import { useAlertStore } from "@/context/AlertModalProvider";
 
 export function Login(props: Props) {
   const { setAuthType } = props;
@@ -25,14 +24,13 @@ export function Login(props: Props) {
   const { setAlert } = useAlertStore();
 
   const yupSync: Rule = {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async validator({ field }: any, value) {
       await Yup.loginEmail.validateSyncAt(field, { [field]: value });
     },
   };
 
   const onFinish = async (values: LoginInput) => {
-    const credentials = await signIn('credentials', {
+    const credentials = await signIn("credentials", {
       email: values.email,
       password: values.password,
       redirect: false,
@@ -40,15 +38,15 @@ export function Login(props: Props) {
 
     if (credentials?.error) {
       setAlert({
-        base: 'error',
+        base: "error",
         open: true,
-        title: 'エラーを確認してください',
+        title: "エラーを確認してください",
         description: credentials.error,
-        cancelText: '戻る',
+        cancelText: "戻る",
       });
     } else {
       window.location?.reload();
-      message.success('ログイン成功');
+      message.success("ログイン成功");
     }
   };
 
@@ -61,7 +59,7 @@ export function Login(props: Props) {
         initialValues={{ email: null, password: null }}
         onFinish={onFinish}
         onFinishFailed={(errorInfo) => {
-          console.log('Failed:', errorInfo);
+          console.log("Failed:", errorInfo);
         }}
         autoComplete="on"
         className="flex flex-col gap-xxl p-none sm:p-md mt-lg sm:mt-none"
@@ -81,7 +79,7 @@ export function Login(props: Props) {
             <TextInput
               field="email"
               rules={[yupSync]}
-              placeholder={'メールアドレス'}
+              placeholder={"メールアドレス"}
               className="border-none  bg-surface-secondary [&>input]:bg-surface-secondary rounded-md "
               prefix={<IoPersonOutline />}
             />

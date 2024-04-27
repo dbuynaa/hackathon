@@ -1,18 +1,17 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { Row, Col, Modal } from 'antd';
+import React, { useEffect, useState } from "react";
+import { Row, Col, Modal } from "antd";
 
-import { HeaderLogo, HeaderMenu, HeaderTop } from './components';
-import { useBreakPoint } from '@/hooks';
-import { AlertModal, Button } from '@/components';
-import { IoClose, IoArrowBack } from 'react-icons/io5';
-import { WelcomeModal } from '@/components/auth/WelcomeModal';
-import { AuthModal } from '@/components/auth/AuthModal';
-import { AuthType } from '@/components/auth/type';
-import { useSession } from 'next-auth/react';
-import { Category } from '@/graphql/generated';
+import { HeaderLogo, HeaderMenu, HeaderTop } from "./components";
+import { useBreakPoint } from "@/hooks";
+import { AlertModal, Button } from "@/components";
+import { IoClose, IoArrowBack } from "react-icons/io5";
+import { WelcomeModal } from "@/components/auth/WelcomeModal";
+import { AuthModal } from "@/components/auth/AuthModal";
+import { AuthType } from "@/components/auth/type";
+import { useSession } from "next-auth/react";
+import { Category } from "@/graphql/generated";
 
 export const LandingHeader = ({ categories }: { categories: Category[] }) => {
   const point = useBreakPoint();
@@ -28,7 +27,7 @@ export const LandingHeader = ({ categories }: { categories: Category[] }) => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll);
   }, []);
 
   const [visibleWelcome, setVisibleWelcome] = useState(false);
@@ -68,9 +67,9 @@ export const LandingHeader = ({ categories }: { categories: Category[] }) => {
           <HeaderTop setVisibleWelcome={setVisibleWelcome} />
           <HeaderMenu
             className={`${
-              (!point || point === 'xs') && isScrolled
-                ? ' fixed top-none w-screen z-10 shadow-brandSm'
-                : ''
+              (!point || point === "xs") && isScrolled
+                ? " fixed top-none w-screen z-10 shadow-brandSm"
+                : ""
             }`}
             categories={categories || []}
           />
