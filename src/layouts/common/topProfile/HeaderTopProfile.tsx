@@ -15,7 +15,6 @@ import {
   IoHome,
 } from "react-icons/io5";
 import Link from "next/link";
-import { Routes } from "@/config/routes";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { MdPostAdd } from "react-icons/md";
@@ -83,7 +82,7 @@ export const HeaderTopProfile = (props: Props) => {
           {isAdmin && (
             <>
               <Link
-                href={`${Routes.Landing_Home.Index.route}`}
+                href={`${"/"}`}
                 className="flex flex-row items-center justify-between "
               >
                 <div className="flex flex-row gap-xs2 items-center">
@@ -108,7 +107,7 @@ export const HeaderTopProfile = (props: Props) => {
           )}
           {/* プロフィール */}
           <Link
-            href={Routes.Landing_Profile.Index.route}
+            href={"/profile"}
             className="flex flex-row items-center justify-between"
           >
             <div className="flex flex-row gap-xs2 items-center">
@@ -163,7 +162,7 @@ export const HeaderTopProfile = (props: Props) => {
           {!isAdmin && (
             <>
               <Link
-                href={Routes.Admin_Article.Index.route}
+                href={"/admin"}
                 className="flex flex-row items-center justify-between xs:hidden"
               >
                 <div className="flex flex-row gap-xs2 items-center">
@@ -186,55 +185,10 @@ export const HeaderTopProfile = (props: Props) => {
               <div className="border-t border-secondary xs:hidden"></div>
             </>
           )}
-          {/* 投稿を作成 */}
-          {!isAdmin && (
-            <>
-              <Link
-                href={`${Routes.Landing_Post.Create?.route}`}
-                className="flex flex-row items-center justify-between xs:hidden"
-              >
-                <div className="flex flex-row gap-xs2 items-center">
-                  <div className="w-[36px] h-[36px] bg-primary-100 rounded-xl grid place-content-center">
-                    <MdPostAdd size="18px" className="text-brand" />
-                  </div>
-                  <Typography
-                    className="inline-block"
-                    base="Body"
-                    weight="medium"
-                  >
-                    投稿を作成
-                  </Typography>
-                </div>
-                <IoChevronForward
-                  size="16px"
-                  className="inline-block text-secondary"
-                />
-              </Link>
-              <div className="border-t border-secondary xs:hidden"></div>
-            </>
-          )}
-          {/* お気に入り */}
-          <Link
-            href={Routes.Landing_Collection.Index.route}
-            className="flex flex-row items-center justify-between"
-          >
-            <div className="flex flex-row gap-xs2 items-center">
-              <div className="w-[36px] h-[36px] bg-primary-100 rounded-xl grid place-content-center">
-                <IoBookmark size="18px" className="text-brand" />
-              </div>
-              <Typography className="inline-block" base="Body" weight="medium">
-                お気に入り
-              </Typography>
-            </div>
-            <IoChevronForward
-              size="16px"
-              className="inline-block text-secondary"
-            />
-          </Link>
-          <div className="border-t border-secondary"></div>
+
           {/* ログアウト */}
           <Link
-            href={Routes.Landing_Home.Index.route}
+            href={"/"}
             className="flex flex-row items-center justify-between"
             onClick={() => signOut({ callbackUrl: "/", redirect: true })}
           >

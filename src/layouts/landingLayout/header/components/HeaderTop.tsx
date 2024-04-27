@@ -8,7 +8,6 @@ import { useRouter, usePathname } from "next/navigation";
 
 import { HeaderTopSearchModal } from "./topSearch";
 import { HeaderTopProfile } from "@/layouts/common";
-import { Routes } from "@/config/routes";
 import { useSession } from "next-auth/react";
 
 type Props = {
@@ -34,16 +33,6 @@ export const HeaderTop = ({ setVisibleWelcome }: Props) => {
         value={decodeURIComponent(searchText || '')}
       /> */}
       <div className="gap-xs2 xs:gap-sm flex flex-row">
-        <div className="hidden xs:block">
-          <Button
-            icon={<IoAddOutline className="text-brand" />}
-            onClick={() => {
-              router.push(`${Routes.Landing_Post.Create?.route}`);
-            }}
-          >
-            投稿を作成
-          </Button>
-        </div>
         <div>
           <ButtonIcon
             className="rounded-md"
