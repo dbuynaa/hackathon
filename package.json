@@ -12,8 +12,9 @@
   "dependencies": {
     "@apollo/client": "3.8.7",
     "@apollo/experimental-nextjs-app-support": "0.5.1",
-    "graphql": "16.8.1",
+    "antd": "^5.16.4",
     "dayjs": "1.11.9",
+    "graphql": "16.8.1",
     "next": "14.2.2",
     "next-auth": "^4.24.7",
     "react": "^18",
