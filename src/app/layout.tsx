@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "./../styles/styles.scss";
 import { ApolloWrapper } from "@/lib/apollo/ApolloClient";
 import { NextAuthProvider, authOptions } from "@/lib/next-auth";
 import { getServerSession } from "next-auth";
