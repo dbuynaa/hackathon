@@ -336,6 +336,20 @@ export type ProductsQueryVariables = Exact<{
 
 export type ProductsQuery = { __typename?: 'Query', products?: { __typename?: 'Products', count?: number | null, data?: Array<{ __typename?: 'Product', createdAt: any, description: string, id: string, image: string, name: string, auditer?: { __typename?: 'User', id: string, roleKey: string, name?: string | null, email: string } | null, categories?: Array<{ __typename?: 'Category', name: string, nameEn: string, order: string } | null> | null }> | null } | null };
 
+export type VendorCreateMutationVariables = Exact<{
+  input: VendorCreateInput;
+}>;
+
+
+export type VendorCreateMutation = { __typename?: 'Mutation', vendorCreate?: { __typename?: 'Vendor', id: string, email: string, contact: string, name: string, status?: Status | null } | null };
+
+export type VendorDeleteMutationVariables = Exact<{
+  where: VendorWhereUniqueInput;
+}>;
+
+
+export type VendorDeleteMutation = { __typename?: 'Mutation', vendorDelete?: boolean | null };
+
 export type VendorsQueryVariables = Exact<{
   take: Scalars['Int']['input'];
   skip: Scalars['Int']['input'];
@@ -343,6 +357,13 @@ export type VendorsQueryVariables = Exact<{
 
 
 export type VendorsQuery = { __typename?: 'Query', vendors?: { __typename?: 'Vendors', count?: number | null, data?: Array<{ __typename?: 'Vendor', name: string, contact: string, email: string, status?: Status | null }> | null } | null };
+
+export type VendorQueryVariables = Exact<{
+  where: VendorWhereUniqueInput;
+}>;
+
+
+export type VendorQuery = { __typename?: 'Query', vendor?: { __typename?: 'Vendor', id: string, email: string, name: string, status?: Status | null, contact: string } | null };
 
 
 export const LoginDocument = gql`
@@ -546,6 +567,74 @@ export function useProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<P
 export type ProductsQueryHookResult = ReturnType<typeof useProductsQuery>;
 export type ProductsLazyQueryHookResult = ReturnType<typeof useProductsLazyQuery>;
 export type ProductsQueryResult = Apollo.QueryResult<ProductsQuery, ProductsQueryVariables>;
+export const VendorCreateDocument = gql`
+    mutation VendorCreate($input: VendorCreateInput!) {
+  vendorCreate(input: $input) {
+    id
+    email
+    contact
+    name
+    status
+  }
+}
+    `;
+export type VendorCreateMutationFn = Apollo.MutationFunction<VendorCreateMutation, VendorCreateMutationVariables>;
+
+/**
+ * __useVendorCreateMutation__
+ *
+ * To run a mutation, you first call `useVendorCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVendorCreateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [vendorCreateMutation, { data, loading, error }] = useVendorCreateMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useVendorCreateMutation(baseOptions?: Apollo.MutationHookOptions<VendorCreateMutation, VendorCreateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<VendorCreateMutation, VendorCreateMutationVariables>(VendorCreateDocument, options);
+      }
+export type VendorCreateMutationHookResult = ReturnType<typeof useVendorCreateMutation>;
+export type VendorCreateMutationResult = Apollo.MutationResult<VendorCreateMutation>;
+export type VendorCreateMutationOptions = Apollo.BaseMutationOptions<VendorCreateMutation, VendorCreateMutationVariables>;
+export const VendorDeleteDocument = gql`
+    mutation VendorDelete($where: VendorWhereUniqueInput!) {
+  vendorDelete(where: $where)
+}
+    `;
+export type VendorDeleteMutationFn = Apollo.MutationFunction<VendorDeleteMutation, VendorDeleteMutationVariables>;
+
+/**
+ * __useVendorDeleteMutation__
+ *
+ * To run a mutation, you first call `useVendorDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVendorDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [vendorDeleteMutation, { data, loading, error }] = useVendorDeleteMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useVendorDeleteMutation(baseOptions?: Apollo.MutationHookOptions<VendorDeleteMutation, VendorDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<VendorDeleteMutation, VendorDeleteMutationVariables>(VendorDeleteDocument, options);
+      }
+export type VendorDeleteMutationHookResult = ReturnType<typeof useVendorDeleteMutation>;
+export type VendorDeleteMutationResult = Apollo.MutationResult<VendorDeleteMutation>;
+export type VendorDeleteMutationOptions = Apollo.BaseMutationOptions<VendorDeleteMutation, VendorDeleteMutationVariables>;
 export const VendorsDocument = gql`
     query Vendors($take: Int!, $skip: Int!) {
   vendors(take: $take, skip: $skip) {
@@ -588,3 +677,42 @@ export function useVendorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ve
 export type VendorsQueryHookResult = ReturnType<typeof useVendorsQuery>;
 export type VendorsLazyQueryHookResult = ReturnType<typeof useVendorsLazyQuery>;
 export type VendorsQueryResult = Apollo.QueryResult<VendorsQuery, VendorsQueryVariables>;
+export const VendorDocument = gql`
+    query Vendor($where: VendorWhereUniqueInput!) {
+  vendor(where: $where) {
+    id
+    email
+    name
+    status
+    contact
+  }
+}
+    `;
+
+/**
+ * __useVendorQuery__
+ *
+ * To run a query within a React component, call `useVendorQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVendorQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVendorQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useVendorQuery(baseOptions: Apollo.QueryHookOptions<VendorQuery, VendorQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VendorQuery, VendorQueryVariables>(VendorDocument, options);
+      }
+export function useVendorLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VendorQuery, VendorQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VendorQuery, VendorQueryVariables>(VendorDocument, options);
+        }
+export type VendorQueryHookResult = ReturnType<typeof useVendorQuery>;
+export type VendorLazyQueryHookResult = ReturnType<typeof useVendorLazyQuery>;
+export type VendorQueryResult = Apollo.QueryResult<VendorQuery, VendorQueryVariables>;

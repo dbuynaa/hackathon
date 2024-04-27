@@ -13,3 +13,15 @@ export const VENDORS = gql`
     }
   }
 `;
+
+export const VENDOR = gql`
+  query Vendor($where: VendorWhereUniqueInput!) {
+  vendor(where: $where) {
+    id
+    email
+    name
+    status
+    contact
+  }
+}
+`;

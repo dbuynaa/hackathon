@@ -5,4 +5,10 @@ const loginEmail = yup.object().shape({
   password: yup.string().nullable().min(8, "").required(""),
 });
 
-export const Yup = { loginEmail }
+const vendorCreate = yup.object().shape({
+  email: yup.string().nullable().email().required(),
+  name: yup.string().nullable().required(),
+  contact: yup.string().nullable().required(),
+});
+
+export const Yup = { loginEmail, vendorCreate };

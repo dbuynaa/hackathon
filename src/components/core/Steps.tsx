@@ -177,7 +177,7 @@ export function Steps(props: Props) {
                   className="px-md "
                   onClick={next}
                 >
-                  {nextText || 'プレビュー'}
+                  {'next'}
                 </Button>
               ) : (
                 <Button
@@ -187,7 +187,7 @@ export function Steps(props: Props) {
                   className="px-md "
                   htmlType="submit"
                 >
-                  {nextText || 'プレビュー'}
+                  {'create'}
                 </Button>
               )}
             </div>
