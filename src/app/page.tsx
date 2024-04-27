@@ -114,7 +114,6 @@ export default function Home() {
         )}
       </div>
 
-      {/* Section === 記事人気ランキング */}
       <div className="flex px-sm md:px-lg flex-col p-md gap-md sm:gap-lg w-full max-w-screen-xl mx-auto">
         <div className="flex flex-row justify-between items-center pb-xs2 border-b-2 border-brand">
           <Typography base="Subtitle" weight="bold" className="text-primary">
@@ -131,7 +130,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Section === 特集記事 */}
       <div className="flex px-sm md:px-lg flex-col p-md gap-md sm:gap-lg w-full max-w-screen-xl mx-auto">
         <div className="flex flex-row justify-between items-center pb-xs2 border-b-2 border-brand">
           <Typography base="Subtitle" weight="bold" className="text-primary">
@@ -148,7 +146,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Section === カテゴリー */}
       <SectionCategories categories={category?.categories as Category[]} />
     </main>
   );
