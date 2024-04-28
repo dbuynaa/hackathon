@@ -25,16 +25,10 @@ export const VendorColumns = ({ refetch }: { refetch: () => void }) => {
       render: (_t: Vendor, _r: unknown, index: number) => <div>{index}</div>,
     },
     {
-      title: "法人名",
+      title: "Name",
       key: "name",
       render: (item: Vendor) => (
         <div className="flex gap-xs pl-lg items-center">
-          <Avatar
-            shape="square"
-            size="small"
-            src={"https://joeschmoe.io/api/v1/random"}
-            className="border-secondary"
-          />
           <Typography weight="medium" className="text-primary">
             {item.name}
           </Typography>
@@ -42,25 +36,17 @@ export const VendorColumns = ({ refetch }: { refetch: () => void }) => {
       ),
       sorter: true,
     },
+    // {
+    //   title: "",
+    //   key: "endDate",
+    //   render: (item: Vendor) => (
+    //     <Typography weight="medium" className="text-secondary">
+    //       {dayjs(item.).format("YYYY/MM/DD HH:mm")}{" "}
+    //     </Typography>
+    //   ),
+    // },
     {
-      title: "有効期限",
-      key: "endDate",
-      render: (item: Vendor) => (
-        <Badge
-          dot
-          status={
-            item.status === Status.VERIFIED
-              ? "success"
-              : item.status === Status.UNVERIFIED
-              ? "error"
-              : "warning"
-          }
-          // text={`${dayjs(item.endDate).format('YYYY/MM/DD HH:mm')} まで`}
-        />
-      ),
-    },
-    {
-      title: "メールアドレス",
+      title: "Email",
       key: "email",
       render: (item: Vendor) => (
         <div className="flex gap-xs pl-lg text-h6 items-center justify-center">
@@ -83,15 +69,15 @@ export const VendorColumns = ({ refetch }: { refetch: () => void }) => {
     //   ),
     // },
     {
-      title: "ステータス",
+      title: "Status",
       key: "status",
       render: (item: Vendor) => (
         <div className="px-sm">
           <SelectInput
-            defaultValue={item.status || ""}
+            defaultValue={Status.VERIFIED}
             onSelect={() => {}}
             options={[
-              { label: "Unverified", value: Status.UNVERIFIED },
+              { label: "PENDING", value: Status.PENDING },
               {
                 label: "Verified",
                 value: Status.VERIFIED,
@@ -101,6 +87,7 @@ export const VendorColumns = ({ refetch }: { refetch: () => void }) => {
                 value: Status.UNVERIFIED,
               },
             ]}
+            disabled
             size="small"
             autoClearSearchValue
           />

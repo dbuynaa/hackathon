@@ -171,6 +171,12 @@ export type Products = {
   data?: Maybe<Array<Product>>;
 };
 
+export type ProductsWhereInput = {
+  child?: InputMaybe<Array<Scalars['String']['input']>>;
+  parent?: InputMaybe<Scalars['String']['input']>;
+  search?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   Validations?: Maybe<Validations>;
@@ -200,6 +206,7 @@ export type QueryProductArgs = {
 export type QueryProductsArgs = {
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+  where?: InputMaybe<ProductsWhereInput>;
 };
 
 
@@ -378,6 +385,7 @@ export type ProductDeleteMutation = { __typename?: 'Mutation', productDelete?: b
 export type ProductsQueryVariables = Exact<{
   take: Scalars['Int']['input'];
   skip: Scalars['Int']['input'];
+  where?: InputMaybe<ProductsWhereInput>;
 }>;
 
 
@@ -678,8 +686,8 @@ export type ProductDeleteMutationHookResult = ReturnType<typeof useProductDelete
 export type ProductDeleteMutationResult = Apollo.MutationResult<ProductDeleteMutation>;
 export type ProductDeleteMutationOptions = Apollo.BaseMutationOptions<ProductDeleteMutation, ProductDeleteMutationVariables>;
 export const ProductsDocument = gql`
-    query Products($take: Int!, $skip: Int!) {
-  products(take: $take, skip: $skip) {
+    query Products($take: Int!, $skip: Int!, $where: ProductsWhereInput) {
+  products(take: $take, skip: $skip, where: $where) {
     data {
       auditer {
         id
@@ -718,6 +726,7 @@ export const ProductsDocument = gql`
  *   variables: {
  *      take: // value for 'take'
  *      skip: // value for 'skip'
+ *      where: // value for 'where'
  *   },
  * });
  */

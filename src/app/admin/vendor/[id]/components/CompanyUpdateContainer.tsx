@@ -184,7 +184,7 @@ export function CompanyUpdateContainer({
         />
 
         <TextInput
-          label="電話番号"
+          label=""
           required
           field="phoneNumber"
           inputMode="search"
@@ -201,13 +201,13 @@ export function CompanyUpdateContainer({
         <div className="flex gap-sm ">
           <Form.Item
             name="endDate"
-            label="有効期限"
+            label="Created Date"
             rules={[yupSync]}
             className="w-full m-[0] [&>.ant-form-item-row>.ant-form-item-label]:pb-tiny"
           >
             <DatePicker
               format="YYYY/MM/DD"
-              placeholder="有効期限"
+              placeholder="Created At"
               disabledDate={(day) => day.isBefore(dayjs())}
               className="rounded-md w-full"
               suffixIcon={<IoCaretDownSharp className="text-primary" />}

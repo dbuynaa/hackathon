@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const PRODUCTS = gql`
-  query Products($take: Int!, $skip: Int!) {
-    products(take: $take, skip: $skip) {
+  query Products($take: Int!, $skip: Int!, $where: ProductsWhereInput) {
+    products(take: $take, skip: $skip, where: $where) {
       data {
         auditer {
           id

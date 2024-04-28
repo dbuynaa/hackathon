@@ -10,11 +10,9 @@ import { Product } from "@/graphql/generated";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { Can } from "@/layouts/common";
 
 type CardVerticalProps = {
   className?: string;
-  content?: "TEXT" | "VIDEO" | "IMAGE";
   rank?: "new" | "gold" | "silver" | "bronze" | "other" | "special";
   size?: "large" | "small";
   data?: Product;
@@ -22,7 +20,7 @@ type CardVerticalProps = {
 };
 export const CardVertical = (props: CardVerticalProps) => {
   const point = useBreakPoint();
-  const { className, rank, size, content, data, innerStyle } = props;
+  const { className, rank, size, data, innerStyle } = props;
 
   const isLarge = size
     ? size === "large"
@@ -46,7 +44,7 @@ export const CardVertical = (props: CardVerticalProps) => {
           background: `url('${data?.image}'), lightgray 50% / cover no-repeat`,
           marginRight: innerStyle ? 30 : undefined,
         }}
-        className={`bg-cover bg-center rounded-xxs shadow-sm ${
+        className={`bg-cover bg-center rounded-xxs shadow-sm h-[134px] ${
           isLarge ? "h-[192px]" : "h-[134px]"
         }`}
       >
@@ -58,9 +56,7 @@ export const CardVertical = (props: CardVerticalProps) => {
               }`}
             >
               <Image
-                className={`${
-                  isLarge ? "h-[64px] w-[64px]" : "h-[38px] w-[38px]"
-                }`}
+                className={`h-[64px] w-[64px]`}
                 src={`/assets/images/card/rank_${rank}.png`}
                 alt={""}
                 preview={false}

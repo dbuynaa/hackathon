@@ -21,15 +21,18 @@ import {
   Product,
   useCategoriesQuery,
   useProductsQuery,
+  useVendorsQuery,
 } from "@/graphql/generated";
 
 export default function Home() {
-  const { data: category } = useCategoriesQuery();
-  const {
-    data: newPosts,
-    loading: newPostLoading,
-    refetch: refetchNew,
-  } = useProductsQuery({
+  const { data: newPosts, loading: newPostLoading } = useProductsQuery({
+    fetchPolicy: "no-cache",
+    variables: {
+      take: parseInt("7"),
+      skip: parseInt("0"),
+    },
+  });
+  const { data: newVendors, loading: newVendorLoading } = useVendorsQuery({
     fetchPolicy: "no-cache",
     variables: {
       take: parseInt("7"),
@@ -52,7 +55,7 @@ export default function Home() {
             Дэлгэрэнгүй
           </Button>
         </div>
-        {newPostLoading ? (
+        {newVendorLoading ? (
           <div className="grid grid-cols-12 gap-sm md:gap-md xl:gap-lg">
             {[1, 2, 3, 4, 5, 6, 7]?.map((item, index) => {
               if (index === 0) {
@@ -143,32 +146,17 @@ export default function Home() {
               }
             })}
           </div>
-        ) : (newPosts?.products?.count || 0) > 0 ? (
+        ) : (newVendors?.vendors?.count || 0) > 0 ? (
           <div className="grid grid-cols-12 gap-sm md:gap-md xl:gap-lg">
-            {(newPosts?.products?.data || [])?.map((item, index) => {
-              if (index === 0) {
-                return (
-                  <CardFeature
-                    key={item.id}
-                    id={item.id}
-                    className="col-span-12 lg:col-span-6"
-                    image={item.image}
-                  />
-                );
-              } else {
-                return (
-                  <CardVertical
-                    key={item.id}
-                    className="col-span-6 md:col-span-4 lg:col-span-3"
-                    data={item as Product}
-                    rank={
-                      dayjs(item.createdAt).diff(dayjs(), "days") >= -1
-                        ? "new"
-                        : undefined
-                    }
-                  />
-                );
-              }
+            {(newVendors?.vendors?.data || [])?.map((item, index) => {
+              return (
+                <CardFeature
+                  key={item.contact}
+                  id={item.name}
+                  className="col-span-12 lg:col-span-6"
+                  image={"https://picsum.photos/200/300"}
+                />
+              );
             })}
           </div>
         ) : (

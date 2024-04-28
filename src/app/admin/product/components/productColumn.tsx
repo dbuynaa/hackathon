@@ -27,7 +27,7 @@ export const ProductColumns = [
         <Avatar
           shape="square"
           size="small"
-          src={"https://joeschmoe.io/api/v1/random"}
+          src={item.image || "https://i.imgur.com/9fE4n5m.png"}
           className="border-secondary"
         />
         <Typography weight="medium" className="text-primary">
@@ -81,7 +81,7 @@ export const ProductColumns = [
           },
         ]}
         size="small"
-        disabled={true}
+        disabled={false}
       />
     ),
   },
