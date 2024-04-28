@@ -104,7 +104,7 @@ export function Login(props: Props) {
             <a href="/privacy">プライバシーポリシー・Үйлилгээний </a>  нөхцөл
           </CheckBoxInput>
           <Button htmlType="submit" type="primary" className="w-full ">
-            ログイン
+            Нэвтрэх
           </Button>
         </div>
       </Form>

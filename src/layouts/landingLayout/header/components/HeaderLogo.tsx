@@ -11,22 +11,22 @@ export const HeaderLogo = () => {
     >
       <Image
         className="hidden xs:block xs:px-[10px]"
-        alt="Child lab logo"
+        alt=""
         preview={false}
-        src="/assets/images/logo_A2.svg"
+        src="/assets/images/vercel.svg"
       />
       <div className="xs:hidden">
         <Image
           className="w-[48px] h-[56px]"
           alt="Child lab logo"
           preview={false}
-          src="/assets/images/logo_B_white.svg"
+          src="/assets/images/vercel.svg"
         />
       </div>
       <span className="hidden xs:block text-caption lg:text-body text-white font-bold text-center">
-        育児x保育x療育
+        Certify
         <br />
-        総合情報メディア
+        By Codex
       </span>
     </Link>
   );

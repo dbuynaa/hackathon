@@ -23,7 +23,7 @@ export const BannerBottom = () => {
         <span className="text-subtitle lg:text-h5 font-bold">
           アプリで、もっと身近で便利に。
         </span>
-        <div className=" flex flex-row items-center gap-md lg:gap-lg">
+        {/* <div className=" flex flex-row items-center gap-md lg:gap-lg">
           <div className="w-[140px] lg:w-[180px] flex flex-col gap-sm">
             <Button
               className="flex flex-row p-none items-center justify-center bg-brand lg:h-[52px]"
@@ -55,7 +55,7 @@ export const BannerBottom = () => {
               src="/assets/images/qr.svg"
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

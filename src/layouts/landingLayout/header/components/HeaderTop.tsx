@@ -49,7 +49,7 @@ export const HeaderTop = ({ setVisibleWelcome }: Props) => {
               className="hidden xs:block"
               onClick={() => setVisibleWelcome(true)}
             >
-              ログイン
+            Нэвтрэх
             </Button>
           </>
         ) : null}

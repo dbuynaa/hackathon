@@ -50,18 +50,18 @@ export function WelcomeModal(props: Props) {
           />
           <div className="flex gap-md">
             <Image
-              alt="Child lab logo"
+              alt="Certify"
               preview={false}
-              src="/assets/images/logo_A2.svg"
+              src="/assets/images/vercel.svg"
             />
             <Divider
               type="vertical"
               className="h-[38px] bg-neutral-600 m-[0]"
             />
             <Typography className="font-bold text-white text-subtitle">
-              育児x保育x療育
+              Certify 
               <br />
-              総合情報メディア
+              By CodeX
             </Typography>
           </div>
         </div>
@@ -95,7 +95,8 @@ export function WelcomeModal(props: Props) {
                 handleLogin();
               }}
             >
-              ログイン
+
+                Нэвтрэх
             </Button>
           </div>
         </div>
@@ -108,9 +109,9 @@ export function WelcomeModal(props: Props) {
           />
           <div className="flex w-full gap-md items-center justify-center">
             <Image
-              alt="Child lab logo"
+              alt="Certify"
               preview={false}
-              src="/assets/images/logo_A2.svg"
+              src="/assets/images/vercel.svg"
             />
             <Divider
               type="vertical"

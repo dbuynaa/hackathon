@@ -126,9 +126,9 @@ export function AdminSidebar({ className, collapsed, setCollapsed }: Props) {
           <div className="flex flex-row justify-between w-[100%]">
             <Image
               className="w-[130px] h-[40px]"
-              alt="Child lab logo"
+              alt="Certyfy"
               preview={false}
-              src="/assets/images/logo_A.png"
+              src="/assets/images/vercel.svg"
             />
             <ButtonIcon
               // type="primary"
