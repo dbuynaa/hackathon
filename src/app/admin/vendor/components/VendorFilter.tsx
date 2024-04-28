@@ -25,7 +25,7 @@ export function VendorFilter() {
     <div className="flex flex-row items-center justify-between">
       <Input
         className="text-subtitle2 items-center text-secondary bg-neutral-100 border-none rounded-md w-auto [&>input]:bg-neutral-100"
-        placeholder="法人名, Email - 検索, ..."
+        placeholder="Email - Name - ..."
         onChange={(e) => setText(e.target.value)}
         value={text || ""}
         prefix={<IoSearchOutline className="flex text-h5 text-brand" />}
@@ -33,7 +33,7 @@ export function VendorFilter() {
       <div className="flex flex-row gap-xs2">
         <div className=" flex flex-row gap-xs items-center px-xs  h-[46px] rounded-sm border-dark border-[1px]">
           <Typography base="Subtitle2" weight="medium">
-            шүүлтүүр
+            filter
           </Typography>
           <Popover
             placement="bottom"
@@ -62,7 +62,7 @@ export function VendorFilter() {
                     size="small"
                     className="w-[100%]"
                   >
-                    クリア
+                    clear
                   </Button>
                 </div>
               </div>
@@ -74,14 +74,13 @@ export function VendorFilter() {
               icon={<IoFilterOutline />}
               size="small"
             >
-              ステータス
               {searchParams.get("status") ? (
                 <Tag className="ml-xxs" color="orange" size={"small"}>
-                  有り
+                  Chosen
                 </Tag>
               ) : (
                 <Tag className="ml-xxs" color="brand" size={"small"}>
-                  全て
+                  All
                 </Tag>
               )}
             </Button>
@@ -92,7 +91,7 @@ export function VendorFilter() {
           type="primary"
           icon={<IoAddCircleOutline />}
         >
-          契約法人会員追加
+          Add Vendor
         </Button>
       </div>
     </div>

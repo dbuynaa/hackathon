@@ -65,6 +65,7 @@ export type Mutation = {
   validationCreate?: Maybe<Validation>;
   vendorCreate?: Maybe<Vendor>;
   vendorDelete?: Maybe<Scalars['Boolean']['output']>;
+  vendorUpdate?: Maybe<Vendor>;
 };
 
 
@@ -121,6 +122,12 @@ export type MutationVendorCreateArgs = {
 
 export type MutationVendorDeleteArgs = {
   where: VendorWhereUniqueInput;
+};
+
+
+export type MutationVendorUpdateArgs = {
+  id: Scalars['String']['input'];
+  input: VendorUpdateInput;
 };
 
 export type Product = {
@@ -291,8 +298,13 @@ export type Vendor = {
 export type VendorCreateInput = {
   contact: Scalars['String']['input'];
   email: Scalars['String']['input'];
-  id: Scalars['ID']['input'];
   name: Scalars['String']['input'];
+};
+
+export type VendorUpdateInput = {
+  contact?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
   products?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
@@ -342,6 +354,14 @@ export type VendorCreateMutationVariables = Exact<{
 
 
 export type VendorCreateMutation = { __typename?: 'Mutation', vendorCreate?: { __typename?: 'Vendor', id: string, email: string, contact: string, name: string, status?: Status | null } | null };
+
+export type VendorUpdateMutationVariables = Exact<{
+  vendorUpdateId: Scalars['String']['input'];
+  input: VendorUpdateInput;
+}>;
+
+
+export type VendorUpdateMutation = { __typename?: 'Mutation', vendorUpdate?: { __typename?: 'Vendor', id: string } | null };
 
 export type VendorDeleteMutationVariables = Exact<{
   where: VendorWhereUniqueInput;
@@ -604,6 +624,40 @@ export function useVendorCreateMutation(baseOptions?: Apollo.MutationHookOptions
 export type VendorCreateMutationHookResult = ReturnType<typeof useVendorCreateMutation>;
 export type VendorCreateMutationResult = Apollo.MutationResult<VendorCreateMutation>;
 export type VendorCreateMutationOptions = Apollo.BaseMutationOptions<VendorCreateMutation, VendorCreateMutationVariables>;
+export const VendorUpdateDocument = gql`
+    mutation VendorUpdate($vendorUpdateId: String!, $input: VendorUpdateInput!) {
+  vendorUpdate(id: $vendorUpdateId, input: $input) {
+    id
+  }
+}
+    `;
+export type VendorUpdateMutationFn = Apollo.MutationFunction<VendorUpdateMutation, VendorUpdateMutationVariables>;
+
+/**
+ * __useVendorUpdateMutation__
+ *
+ * To run a mutation, you first call `useVendorUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVendorUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [vendorUpdateMutation, { data, loading, error }] = useVendorUpdateMutation({
+ *   variables: {
+ *      vendorUpdateId: // value for 'vendorUpdateId'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useVendorUpdateMutation(baseOptions?: Apollo.MutationHookOptions<VendorUpdateMutation, VendorUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<VendorUpdateMutation, VendorUpdateMutationVariables>(VendorUpdateDocument, options);
+      }
+export type VendorUpdateMutationHookResult = ReturnType<typeof useVendorUpdateMutation>;
+export type VendorUpdateMutationResult = Apollo.MutationResult<VendorUpdateMutation>;
+export type VendorUpdateMutationOptions = Apollo.BaseMutationOptions<VendorUpdateMutation, VendorUpdateMutationVariables>;
 export const VendorDeleteDocument = gql`
     mutation VendorDelete($where: VendorWhereUniqueInput!) {
   vendorDelete(where: $where)

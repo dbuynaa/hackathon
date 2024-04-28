@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { styled } from 'styled-components';
-import { Steps as AntSteps, StepProps, StepsProps } from 'antd';
-import { Button } from '@/components';
+import React from "react";
+import { styled } from "styled-components";
+import { Steps as AntSteps, StepProps, StepsProps } from "antd";
+import { Button } from "@/components";
 
 const StyledSteps = styled(AntSteps)`
   line-height: 0 !important;
@@ -121,28 +121,28 @@ export function Steps(props: Props) {
     title: item.title,
     status:
       current === steps.length - 1 && index === current
-        ? 'finish'
+        ? "finish"
         : index === current
-        ? 'process'
+        ? "process"
         : index < current
-        ? 'process'
-        : 'wait',
+        ? "process"
+        : "wait",
   }));
 
   return (
     <div
       className={`flex justify-between ${
         landing
-          ? 'flex-col xs:flex-row xs:items-center xs:gap-0 gap-sm'
-          : 'flex-row items-center'
+          ? "flex-col xs:flex-row xs:items-center xs:gap-0 gap-sm"
+          : "flex-row items-center"
       } ${className} ${
-        className === 'company' && current === 1 && 'w-[calc(50%+300px)]'
+        className === "company" && current === 1 && "w-[calc(50%+300px)]"
       }`}
     >
       <StyledSteps
         {..._props}
         className={`flex flex-row p-none px-xs gap-sm bg-surface-primary border border-primary rounded-md w-auto ${
-          landing ? 'landing' : ''
+          landing ? "landing" : ""
         }`}
         current={current}
         items={items}
@@ -150,11 +150,11 @@ export function Steps(props: Props) {
       />
       {!hideSubmitButton && (
         <div
-          className={`flex flex-row gap-sm ${landing ? 'hidden xs:flex' : ''}`}
+          className={`flex flex-row gap-sm ${landing ? "hidden xs:flex" : ""}`}
         >
           {current > 0 && (
             <Button className="px-md " onClick={() => prev()}>
-              {prevText || '戻る'}
+              {prevText || "back"}
             </Button>
           )}
           {current < items?.length - 1 && (
@@ -177,7 +177,7 @@ export function Steps(props: Props) {
                   className="px-md "
                   onClick={next}
                 >
-                  {'next'}
+                  {"next"}
                 </Button>
               ) : (
                 <Button
@@ -187,14 +187,14 @@ export function Steps(props: Props) {
                   className="px-md "
                   htmlType="submit"
                 >
-                  {'create'}
+                  {"create"}
                 </Button>
               )}
             </div>
           )}
           {current === items.length - 1 && (
             <Button type="primary" className="px-md " htmlType="submit">
-              {submitText || '投稿'}
+              {submitText || "投稿"}
             </Button>
           )}
         </div>

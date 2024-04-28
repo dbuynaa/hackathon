@@ -22,19 +22,22 @@ export default function AdminCompanyListPage(props: Props) {
 
   const { data, loading, refetch } = useVendorsQuery({
     fetchPolicy: "no-cache",
-    // variables: {
-    //   take: parseInt(searchParams.take || '20'),
-    //   skip: parseInt(searchParams.skip || '0'),
-    //   where: { search: searchParams.search, status: searchParams.status },
-    //   orderBy: searchParams.order,
-    // },
+    variables: {
+      take: parseInt(searchParams.take || "20"),
+      skip: parseInt(searchParams.skip || "0"),
+      // where: { search: searchParams.search, status: searchParams.status },
+      // orderBy: searchParams.order,
+    },
   });
   useEffect(() => {
     refetch();
   }, [searchParams, refetch]);
 
   return (
-    <AdminLayoutContainer title="Vendor management" icon={<IoBusinessOutline />}>
+    <AdminLayoutContainer
+      title="Vendor management"
+      icon={<IoBusinessOutline />}
+    >
       <div className="flex flex-col gap-md">
         {/* Filter */}
         <VendorFilter />

@@ -35,7 +35,7 @@ export function CompanyCreateStep2({
       />
       <div className="flex flex-row gap-sm justify-end pt-md border-t-2 border-t-brand">
         <Button className="px-md" onClick={() => prev()} disabled={loading}>
-          戻る
+          Back
         </Button>
         <Button
           className="px-md"

@@ -11,6 +11,13 @@ export const VENDOR_CREATE = gql`
     }
   }
 `;
+export const VENDOR_UPDATE = gql`
+  mutation VendorUpdate($vendorUpdateId: String!, $input: VendorUpdateInput!) {
+    vendorUpdate(id: $vendorUpdateId, input: $input) {
+      id
+    }
+  }
+`;
 
 export const VENDOR_DELETE = gql`
   mutation VendorDelete($where: VendorWhereUniqueInput!) {

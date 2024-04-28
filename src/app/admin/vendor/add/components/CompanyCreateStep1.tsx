@@ -14,7 +14,6 @@ type Props = {
 };
 
 export function CompanyCreateStep1({ yupSync }: Props) {
-  const [loading, setLoading] = useState(false);
   return (
     <div className="flex flex-col gap-lg">
       <div className="flex justify-between"></div>
@@ -25,13 +24,13 @@ export function CompanyCreateStep1({ yupSync }: Props) {
         allowClear={{
           clearIcon: <IoClose className="w-[18px] h-[18px] text-neutral-500" />,
         }}
-        placeholder="ひまわり幼稚園"
+        placeholder="Company Name"
       />
 
       <div className="flex gap-sm ">
         <TextInput
           label="Company Email"
-          field={"email"}
+          field="email"
           required
           rules={[yupSync]}
           allowClear={{
@@ -57,13 +56,13 @@ export function CompanyCreateStep1({ yupSync }: Props) {
 
       <div className="flex flex-row gap-sm justify-end pt-md border-t-2 border-t-brand">
         <Button
-          loading={loading}
-          disabled={loading}
+          loading={false}
+          disabled={false}
           type="primary"
           className="px-md"
           htmlType="submit"
         >
-          プレビュー
+          Next
         </Button>
       </div>
     </div>

@@ -90,7 +90,17 @@ export const VendorColumns = ({ refetch }: { refetch: () => void }) => {
           <SelectInput
             defaultValue={item.status || ""}
             onSelect={() => {}}
-            options={[{ label: "Unverified", value: Status.UNVERIFIED }]}
+            options={[
+              { label: "Unverified", value: Status.UNVERIFIED },
+              {
+                label: "Verified",
+                value: Status.VERIFIED,
+              },
+              {
+                label: "Verified",
+                value: Status.UNVERIFIED,
+              },
+            ]}
             size="small"
             autoClearSearchValue
           />
@@ -113,10 +123,9 @@ export const VendorColumns = ({ refetch }: { refetch: () => void }) => {
               if (item.id) {
                 alertModal.confirm({
                   base: "warning",
-                  title: `契約法人を削除しますか？`,
+                  title: `do you want to delete ${item.name}?`,
                   okText: "削除",
                   onOk: () => {},
-                  cancelText: "キャンセル",
                 });
               }
             }}

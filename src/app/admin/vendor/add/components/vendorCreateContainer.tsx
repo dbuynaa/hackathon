@@ -13,6 +13,7 @@ import {
   VendorCreateInput,
   useVendorCreateMutation,
   useVendorLazyQuery,
+  useVendorUpdateMutation,
 } from "@/graphql/generated";
 import { CompanyCreateStep1 } from "./CompanyCreateStep1";
 import { CompanyCreateStep2 } from "./CompanyCreateStep2";
@@ -41,11 +42,9 @@ export function VendorCreateContainer({
     onCompleted: async (_data) => {
       const { vendor } = _data;
       const _input: VendorCreateInput = {
-        id: vendor?.id || "",
         contact: vendor?.contact || "",
         email: vendor?.email || "",
         name: vendor?.name || "",
-        products: [],
       };
 
       setVendor(_input as VendorCreateInput);
@@ -56,6 +55,30 @@ export function VendorCreateContainer({
   });
 
   const [onVendorCreateMutation] = useVendorCreateMutation({
+    onCompleted: () => {
+      alertModal.confirm({
+        base: "success",
+        open: true,
+        title: "Success",
+        okText: "Close",
+        closeIcon: false,
+        onOk: () => {
+          router.push(`/admin/vendor`);
+        },
+      });
+    },
+    onError: (error) => {
+      setAlert({
+        base: "error",
+        open: true,
+        title: "エラーを確認してください",
+        description: error?.message ? error.message : "",
+        cancelText: "戻る",
+      });
+    },
+  });
+
+  const [onVendorUpdateMutation] = useVendorUpdateMutation({
     onCompleted: () => {
       alertModal.confirm({
         base: "success",
@@ -115,12 +138,13 @@ export function VendorCreateContainer({
       setVendor(values);
       next();
     } else if (current === 1) {
-      // if (vendorId)
-      //   onUserUpdateMutation({
-      //     variables: { id: userId, input: { ..._input } },
-      //   });
-      // else
-      onVendorCreateMutation({ variables: { input: values } });
+      console.log("values", values);
+      if (vendorId)
+        onVendorUpdateMutation({
+          variables: { vendorUpdateId: vendorId, input: { ...values } },
+        });
+      else
+        onVendorCreateMutation({ variables: { input: getVendor || values } });
     }
   };
   useEffect(() => {
@@ -153,7 +177,7 @@ export function VendorCreateContainer({
           current={current}
           prev={prev}
           steps={steps}
-          submitText="追加"
+          submitText="Submit"
           className="company"
         />
         <div className={current != 2 ? "mx-auto w-[600px]" : ""}>
