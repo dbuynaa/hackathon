@@ -49,7 +49,7 @@ export default function Home() {
             leftIcon={<IoArrowForwardOutline />}
             href="/more/new"
           >
-            もっとみる
+            Дэлгэрэнгүй
           </Button>
         </div>
         {newPostLoading ? (
@@ -125,7 +125,7 @@ export default function Home() {
             leftIcon={<IoArrowForwardOutline />}
             href="/more/rank"
           >
-            もっとみる
+            Дэлгэрэнгүй
           </Button>
         </div>
       </div>

@@ -70,7 +70,7 @@ export function WelcomeModal(props: Props) {
             <Typography className="text-white font-bold text-center">
               メールアドレス・パスワードをお持ちでない
               <br />
-              方はこちらからはじめてください
+              Хэрэглэгч эсэх?
             </Typography>
             <Link
               href="/"
@@ -85,8 +85,8 @@ export function WelcomeModal(props: Props) {
           </div>
           <div className="flex flex-col items-center w-full gap-sm bg-neutral-700 rounded-md p-sm lg:p-md">
             <Typography className="font-bold text-white text-center">
-              メールアドレス・パスワードを付与され
-              <br /> ている方はこちらからはじめてください
+              Хэрэв шинэ хэрэглэгч бол 
+              <br /> Энд дарна уу
             </Typography>
             <Button
               type="primary"
@@ -117,9 +117,9 @@ export function WelcomeModal(props: Props) {
               className="h-[38px] bg-neutral-600 m-[0]"
             />
             <Typography className="font-bold text-white text-subtitle">
-              育児×保育×療育
+              Certify
               <br />
-              総合情報メディア
+              By codeX
             </Typography>
           </div>
         </div>

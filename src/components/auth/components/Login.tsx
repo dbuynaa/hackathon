@@ -40,13 +40,13 @@ export function Login(props: Props) {
       setAlert({
         base: "error",
         open: true,
-        title: "エラーを確認してください",
+        title: "Алдаа шалгах",
         description: credentials.error,
-        cancelText: "戻る",
+        cancelText: "Буцах",
       });
     } else {
       window.location?.reload();
-      message.success("ログイン成功");
+      message.success("Амжилттай нэвтэрлээ");
     }
   };
 
@@ -68,18 +68,17 @@ export function Login(props: Props) {
         <div className="flex flex-col gap-md sm:gap-lg">
           <div className="flex flex-col gap-xs2">
             <Typography weight="bold" base="H5" className=" text-primary">
-              ログイン
+              Нэвтрэх
             </Typography>
             <Typography className="text-secondary">
-              メールアドレス・パスワードを付与されていない、第三者の利用は禁じられています。
-            </Typography>
+              Бүртгүүлээгүй 3-дагч этгээд ашиглахыг хориглоно.  </Typography>
           </div>
 
           <div className="flex flex-col gap-md">
             <TextInput
               field="email"
               rules={[yupSync]}
-              placeholder={"メールアドレス"}
+              placeholder={"И-Мэйл"}
               className="border-none  bg-surface-secondary [&>input]:bg-surface-secondary rounded-md "
               prefix={<IoPersonOutline />}
             />
@@ -88,7 +87,7 @@ export function Login(props: Props) {
               field="password"
               required
               rules={[yupSync]}
-              placeholder="パスワード"
+              placeholder="Нууц үг"
               className="border-none  bg-surface-secondary [&>input]:bg-surface-secondary "
             />
           </div>
@@ -97,12 +96,12 @@ export function Login(props: Props) {
             className="flex self-end font-medium p-[0]"
             onClick={() => setAuthType(AuthType.Forget)}
           >
-            パスワードをお忘れの方はこちら
+            Нууц үгээ мартсан?
           </Button>
         </div>
         <div className="flex flex-col gap-md">
           <CheckBoxInput field="agree" rules={[yupSync]}>
-            <a href="/privacy">プライバシーポリシー・利用規約 </a>に同意する
+            <a href="/privacy">プライバシーポリシー・Үйлилгээний </a>  нөхцөл
           </CheckBoxInput>
           <Button htmlType="submit" type="primary" className="w-full ">
             ログイン

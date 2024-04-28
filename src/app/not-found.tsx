@@ -15,8 +15,8 @@ export default function Error({
 
   return (
     <div>
-      <h1>ページが見つかりません!</h1>
-      <button onClick={() => reset()}>もう一度試してください</button>
+      <h1>Хуудас олдсонгүй!</h1>
+      <button onClick={() => reset()}>Дахин оролдоно уу</button>
     </div>
   );
 }
