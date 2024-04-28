@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   AvatarUpload,
@@ -7,43 +7,41 @@ import {
   TextInput,
   Typography,
   alertModal,
-} from '@/components';
+} from "@/components";
 import {
   CompanyAdminQuery,
   CompanyUpdateInput,
   useCompanyUpdateMutation,
-} from '@/graphql/generated';
-import { IoCaretDownSharp, IoClose } from 'react-icons/io5';
-import { DatePicker, Form, Image } from 'antd';
-import { Rule } from 'antd/es/form';
-import { Yup } from '@/lib/yup';
-import { enums } from '@/utils/enumUtils';
-import dayjs from 'dayjs';
-import { sourceFile } from '@/utils/file/sourceFile';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { NumberInput } from '@/components/form/NumberInput';
+} from "@/graphql/generated";
+import { IoCaretDownSharp, IoClose } from "react-icons/io5";
+import { DatePicker, Form, Image } from "antd";
+import { Rule } from "antd/es/form";
+import { Yup } from "@/lib/yup";
+import dayjs from "dayjs";
+import { sourceFile } from "@/utils/file/sourceFile";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { NumberInput } from "@/components/form/NumberInput";
 import {
   validateKatakanaFull,
   validatePhoneNumber,
-} from '@/utils/form/validateFormat';
-import { formMaskPhoneNumber } from '@/utils/form/maskFormat';
+} from "@/utils/form/validateFormat";
+import { formMaskPhoneNumber } from "@/utils/form/maskFormat";
 
 export function CompanyUpdateContainer({
   data,
   setEdit,
 }: {
-  data: CompanyAdminQuery['company'];
+  data: CompanyAdminQuery["company"];
   setEdit: (_: boolean) => void;
 }) {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const router = useRouter();
   const yupSync: Rule = ({ getFieldValue }) => ({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async validator({ field }: any, value) {
-      const [object, property] = field.split('.');
-      const emailVal = getFieldValue('email');
+      const [object, property] = field.split(".");
+      const emailVal = getFieldValue("email");
 
       if (object && property) {
         await Yup.companyUpdate.validateSyncAt(
@@ -53,7 +51,7 @@ export function CompanyUpdateContainer({
           },
           {
             context: { email: emailVal },
-          },
+          }
         );
       } else {
         await Yup.companyUpdate.validateSyncAt(field, { [field]: value });
@@ -63,9 +61,9 @@ export function CompanyUpdateContainer({
   const [onCompanyUpdateMutation] = useCompanyUpdateMutation({
     onCompleted: () => {
       alertModal.confirm({
-        base: 'success',
-        title: '管理者が編集されました',
-        okText: '管理者管理に戻る',
+        base: "success",
+        title: "管理者が編集されました",
+        okText: "管理者管理に戻る",
         onOk: () => {
           setEdit(false);
           router.refresh();
@@ -74,10 +72,10 @@ export function CompanyUpdateContainer({
     },
     onError: (error) => {
       alertModal.confirm({
-        base: 'error',
-        title: 'エラーを確認してください',
+        base: "error",
+        title: "エラーを確認してください",
         description: error.message,
-        okText: '戻る',
+        okText: "戻る",
       });
     },
   });
@@ -101,7 +99,7 @@ export function CompanyUpdateContainer({
       layout="vertical"
       onFinish={onFinish}
       onFinishFailed={(errorInfo) => {
-        console.log('Failed:', errorInfo);
+        console.log("Failed:", errorInfo);
       }}
       autoComplete="on"
       className="col-span-12 lg:col-span-4 flex flex-col gap-lg lg:border-r border-r-dark lg:pr-lg"
@@ -234,7 +232,7 @@ export function CompanyUpdateContainer({
           <TextInput
             label=" 担当者ID"
             required
-            field={['owner', 'accessId']}
+            field={["owner", "accessId"]}
             rules={[yupSync]}
             allowClear={{
               clearIcon: (
@@ -247,7 +245,7 @@ export function CompanyUpdateContainer({
           <TextInput
             label=" 担当者名"
             required
-            field={['owner', 'name']}
+            field={["owner", "name"]}
             rules={[yupSync]}
             allowClear={{
               clearIcon: (
@@ -257,7 +255,7 @@ export function CompanyUpdateContainer({
           />
           <TextInput
             label="  担当者 メールアドレス"
-            field={['owner', 'email']}
+            field={["owner", "email"]}
             rules={[yupSync]}
             allowClear={{
               clearIcon: (

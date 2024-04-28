@@ -39,23 +39,6 @@ export function VendorFilter() {
             placement="bottom"
             content={
               <div className="w-[260px]">
-                {/* <div className=" pb-xxs border-b-[1px] border-b-brand">
-                  <Typography></Typography>
-                </div>
-                <div>
-                  <RadioGroupInput
-                    className="flex flex-col gap-xs2 py-xs"
-                    value={searchParams.get("status")}
-                    onChange={(e) => {
-                      onSearch("status", e.target.value);
-                    }}
-                    items={enums.companyStatus.list
-                      .map((item) => ({
-                        value: item.key,
-                        label: item.value,
-                      }))}
-                  />
-                </div> */}
                 <div className="flex flex-row justify-between p-xs pb-none gap-xs border-t-[1px] border-t-brand">
                   <Button
                     onClick={() => onSearch("status")}

@@ -7,6 +7,14 @@ export const CATEGORIES = gql`
       nameEn
       code
       order
+      parentCode
+      children {
+        code
+        name
+        nameEn
+        order
+        parentCode
+      }
     }
   }
 `;

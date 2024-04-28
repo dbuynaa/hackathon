@@ -15,6 +15,7 @@ export const PRODUCTS = gql`
           nameEn
           order
         }
+        status
         createdAt
         description
         id
@@ -22,6 +23,32 @@ export const PRODUCTS = gql`
         name
       }
       count
+    }
+  }
+`;
+
+export const PRODUCT = gql`
+  query Product($where: ProductWhereUniqueInput!) {
+    product(where: $where) {
+      auditer {
+        name
+        roleKey
+        email
+      }
+      categories {
+        name
+        nameEn
+        code
+      }
+      status
+      name
+      image
+      id
+      description
+      createdAt
+      Vendor {
+        id
+      }
     }
   }
 `;

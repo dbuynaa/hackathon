@@ -8,7 +8,6 @@ export const VENDORS = gql`
         name
         contact
         email
-        status
       }
     }
   }
@@ -20,7 +19,6 @@ export const VENDOR = gql`
     id
     email
     name
-    status
     contact
   }
 }

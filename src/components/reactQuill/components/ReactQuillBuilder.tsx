@@ -110,51 +110,9 @@ const StyledQuil = styled(QuillWrapper)`
     }
   }
 
-  .ql-header .ql-picker-label::before {
-    content: "サイズ" !important;
-  }
-  .ql-header .ql-picker-label[data-value="1"]::before,
-  .ql-header .ql-picker-item[data-value="1"]::before {
-    content: "サイズ１" !important;
-  }
-  .ql-header .ql-picker-label[data-value="2"]::before,
-  .ql-header .ql-picker-item[data-value="2"]::before {
-    content: "サイズ２" !important;
-  }
-  .ql-header .ql-picker-label[data-value="3"]::before,
-  .ql-header .ql-picker-item[data-value="3"]::before {
-    content: "サイズ３" !important;
-  }
-  .ql-header .ql-picker-label[data-value="4"]::before,
-  .ql-header .ql-picker-item[data-value="4"]::before {
-    content: "サイズ４" !important;
-  }
-  .ql-header .ql-picker-label[data-value="5"]::before,
-  .ql-header .ql-picker-item[data-value="5"]::before {
-    content: "サイズ５" !important;
-  }
-  .ql-header .ql-picker-label[data-value="6"]::before,
-  .ql-header .ql-picker-item[data-value="6"]::before {
-    content: "サイズ６" !important;
-  }
-  .ql-snow .ql-picker.ql-header .ql-picker-item::before {
-    content: "サイズ";
-  }
-  .ql-snow .ql-tooltip::before {
-    content: "リンク先のURL" !important;
-  }
   .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
     content: "OK" !important;
-  }
-  .ql-snow .ql-tooltip a.ql-action::after {
-    content: "編集" !important;
-  }
-  .ql-snow .ql-tooltip a.ql-remove::before {
-    content: "取り除く" !important;
-  }
-  .ql-snow .ql-tooltip[data-mode="link"]::before {
-    content: "リンク先のURL:" !important;
-  }
+  
 `;
 
 const ReactQuillBuilder = ({

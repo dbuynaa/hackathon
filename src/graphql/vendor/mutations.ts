@@ -7,7 +7,6 @@ export const VENDOR_CREATE = gql`
       email
       contact
       name
-      status
     }
   }
 `;

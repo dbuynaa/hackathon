@@ -2,12 +2,12 @@ import React from "react";
 import AntdComponentsRegistry from "@/lib/antd/AntdRegistry";
 import theme from "@/utils/themeConfig";
 import { App, ConfigProvider } from "antd";
-import jaJP from "antd/lib/locale/ja_JP";
+import locale from "antd/lib/locale/mn_MN";
 import UseAppAlertModal from "@/components/core/UseAlertModal";
 import UseAntApp from "@/components/core/UseAntApp";
 import { locale as dayjsLocale } from "dayjs";
-import "dayjs/locale/ja";
-dayjsLocale("ja");
+import "dayjs/locale/mn";
+dayjsLocale("mn");
 export default function AntConfigProvider({
   children,
 }: {
@@ -15,7 +15,7 @@ export default function AntConfigProvider({
 }) {
   return (
     <AntdComponentsRegistry>
-      <ConfigProvider theme={theme} locale={jaJP}>
+      <ConfigProvider theme={theme} locale={locale}>
         <App>
           <UseAppAlertModal />
           <UseAntApp />

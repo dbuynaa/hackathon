@@ -2,7 +2,12 @@
 
 import { VerticalNavItemsType } from "@/layouts/types";
 import { useRouter } from "next/navigation";
-import { IoBusinessOutline, IoNewspaperOutline, IoPersonAddOutline } from "react-icons/io5";
+import {
+  IoBusinessOutline,
+  IoLockClosed,
+  IoNewspaperOutline,
+  IoPersonAddOutline,
+} from "react-icons/io5";
 
 export const AdminSidebarMenus = (): VerticalNavItemsType => {
   const router = useRouter();
@@ -27,6 +32,13 @@ export const AdminSidebarMenus = (): VerticalNavItemsType => {
       label: "Product",
       icon: <IoNewspaperOutline />,
       onClick: () => router.push("/admin/product"),
+      auth: false,
+    },
+    {
+      key: "validation",
+      label: "Validation",
+      icon: <IoLockClosed />,
+      onClick: () => router.push("/admin/validation"),
       auth: false,
     },
   ];
