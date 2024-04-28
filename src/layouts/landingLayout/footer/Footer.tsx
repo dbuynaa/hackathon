@@ -34,16 +34,16 @@ export const LandingFooter = () => {
           <div className="flex flex-row justify-center mx-auto py-sm px-md gap-md bg-surface-dark rounded-b-md xs:h-[184px] xs:flex-col  xs:mx-none xs:px-xxs sm:px-xs">
             <div className="w-[124px] h-[40px]">
               <Image
-                alt="Child lab logo"
+                alt="Certify"
                 preview={false}
-                src="/assets/images/logo_A2.svg"
+                src="/assets/images/vercel.svg"
               />
             </div>
 
             <span className=" text-body text-white font-bold xs:text-center">
-              育児x保育x療育
+              Certify
               <br />
-              総合情報メディア
+              By CodeX
             </span>
           </div>
           <Row className="w-[100%] mb-md xs:mt-md md:mt-xl" gutter={[4, 4]}>
