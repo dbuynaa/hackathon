@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { Input, Modal } from 'antd';
-import { Typography, Button } from '@/components';
+import { useEffect, useState } from "react";
+import { Input, Modal } from "antd";
+import { Typography, Button } from "@/components";
 import {
   IoSearchOutline,
   IoChevronForwardOutline,
   IoCloseOutline,
   IoCloseCircleOutline,
   IoClose,
-} from 'react-icons/io5';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+} from "react-icons/io5";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type Props = {
   getSearchModal: boolean;
@@ -19,13 +19,7 @@ type Props = {
   searchText: string;
 };
 
-const dataRecommended = [
-  '子どもの発達基礎',
-  '離乳食基礎',
-  '発達障害基礎',
-  '遊び',
-  '特性への対応',
-];
+const dataRecommended = [""];
 
 export function HeaderTopSearchModal(props: Props) {
   const { getSearchModal, setSearchModal, searchText } = props;
@@ -40,7 +34,7 @@ export function HeaderTopSearchModal(props: Props) {
   }, [getSearchModal]);
 
   const onInit = async () => {
-    const data = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+    const data = JSON.parse(localStorage.getItem("searchHistory") || "[]");
     setHistory(data);
   };
 
@@ -54,7 +48,7 @@ export function HeaderTopSearchModal(props: Props) {
       <div className="flex flex-col gap-lg">
         <Input
           className="flex text-subtitle2 items-center text-secondary bg-surface-secondary border-none [&>input]:bg-surface-secondary rounded-md"
-          placeholder="気になるワードを入力してください"
+          placeholder="Search..."
           prefix={<IoSearchOutline className="flex text-h5 text-brand" />}
           value={text}
           allowClear={{
@@ -64,8 +58,8 @@ export function HeaderTopSearchModal(props: Props) {
           }}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              if (text === '') {
+            if (e.key === "Enter") {
+              if (text === "") {
                 setSearchModal(false);
                 return;
               }
@@ -73,8 +67,8 @@ export function HeaderTopSearchModal(props: Props) {
               setSearchModal(false);
               const searchHistories = [text, ...history];
               localStorage.setItem(
-                'searchHistory',
-                JSON.stringify(searchHistories.slice(0, 5)),
+                "searchHistory",
+                JSON.stringify(searchHistories.slice(0, 5))
               );
             }
           }}
@@ -84,9 +78,7 @@ export function HeaderTopSearchModal(props: Props) {
             weight="bold"
             base="Subtitle"
             className="flex justify-between items-center mb-xs2 border-b-2 border-brand"
-          >
-            おすすめワード
-          </Typography>
+          ></Typography>
 
           {dataRecommended.map((e) => (
             <Link
@@ -108,17 +100,17 @@ export function HeaderTopSearchModal(props: Props) {
             base="Subtitle"
             className="flex justify-between items-center mb-xs2 border-b-2 border-brand"
           >
-            検索履歴
+            History
             <Button
               size="small"
               type="text"
               leftIcon={<IoCloseCircleOutline />}
               onClick={() => {
                 setHistory([]);
-                localStorage.setItem('searchHistory', JSON.stringify([]));
+                localStorage.setItem("searchHistory", JSON.stringify([]));
               }}
             >
-              全て削除
+              Clear
             </Button>
           </Typography>
 
@@ -137,12 +129,12 @@ export function HeaderTopSearchModal(props: Props) {
                     e.preventDefault();
                     e.stopPropagation();
                     const filteredHistory = history.filter(
-                      (x, y) => index !== y,
+                      (x, y) => index !== y
                     );
                     setHistory(filteredHistory);
                     localStorage.setItem(
-                      'searchHistory',
-                      JSON.stringify(filteredHistory),
+                      "searchHistory",
+                      JSON.stringify(filteredHistory)
                     );
                   }}
                 >

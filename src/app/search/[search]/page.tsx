@@ -71,7 +71,7 @@ export default function Search({ params }: Props) {
         />
       </div>
 
-      {/* Section === 特集記事 */}
+      {/* Section === Онцлох */}
       <div className="flex flex-col p-sm xs:p-lg xl:py-xxl w-full max-w-screen-xl mx-auto">
         <div className="grid grid-cols-12 gap-md md:gap-lg lg:gap-md xl:gap-xl">
           <div className="col-span-12 lg:col-span-8 flex flex-col gap-md xl:gap-lg lg:border-r lg:border-primary  lg:pr-md xl:pr-xl">
@@ -123,7 +123,7 @@ export default function Search({ params }: Props) {
             )}
           </div>
           <div className="col-span-12 lg:col-span-4 flex flex-col gap-md xl:gap-lg">
-            {/* 特集記事 */}
+            {/* Онцлох */}
             <div>
               <div className="flex flex-row justify-between  mb-sm border-b-2 border-brand">
                 <Typography
@@ -131,7 +131,7 @@ export default function Search({ params }: Props) {
                   weight="bold"
                   className="text-primary"
                 >
-                  特集記事
+                  Төрлүүд
                 </Typography>
               </div>
               <div className="grid grid-cols-12 gap-sm w-full">

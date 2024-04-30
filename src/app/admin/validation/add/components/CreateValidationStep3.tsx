@@ -36,7 +36,7 @@ export function CreateValidationStep3({
           weight="bold"
           className="text-primary border-b-2 border-b-brand pb-xs2"
         >
-          投稿リスト
+          Бүтээгдэхүүн
         </Typography>
         <Table
           columns={ProductColumns}

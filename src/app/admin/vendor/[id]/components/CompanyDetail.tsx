@@ -86,22 +86,6 @@ export function CompanyDetail({ data }: { data: Vendor }) {
             { l: "Name", v: data?.name },
             { l: "Email", v: data?.email },
             { l: "Contact", v: data?.contact },
-            {
-              l: "Status",
-              v: (
-                <Badge
-                  dot
-                  status={
-                    data?.status === Status.VERIFIED
-                      ? "success"
-                      : data?.status === Status.UNVERIFIED
-                      ? "error"
-                      : "default"
-                  }
-                  // text={`${dayjs(data?.endDate).format("YYYY/MM/DD")}まで`}
-                />
-              ),
-            },
           ]}
         />
       </div>

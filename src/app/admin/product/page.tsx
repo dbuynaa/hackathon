@@ -14,6 +14,7 @@ type Props = {
     take?: string;
     skip?: string;
     order?: string;
+    parent?:string;
   };
 };
 
@@ -25,7 +26,7 @@ export default function AdminProductListPage(props: Props) {
     variables: {
       take: parseInt(searchParams.take || "20"),
       skip: parseInt(searchParams.skip || "0"),
-      // where: { search: searchParams.search, status: searchParams.status },
+      where: { search: searchParams.search, parent: searchParams.parent },
       // orderBy: searchParams.order,
     },
   });

@@ -35,7 +35,7 @@ export function ProductFilter() {
     <div className="flex flex-row items-center justify-between">
       <Input
         className="text-subtitle2 items-center text-secondary bg-neutral-100 border-none [&>input]:bg-neutral-100 rounded-md w-auto"
-        placeholder="検索"
+        placeholder="Email - Name - ..."
         onChange={(e) => setText(e.target.value)}
         value={text || ""}
         prefix={<IoSearchOutline className="flex text-h5 text-brand" />}
@@ -106,7 +106,7 @@ export function ProductFilter() {
                       });
                     }}
                   >
-                    クリア
+                    clear
                   </Button>
                 </div>
               </div>
@@ -118,14 +118,14 @@ export function ProductFilter() {
               icon={<IoAppsOutline />}
               size="small"
             >
-              カテゴリー
+              Хайх
               {searchParams.get("parent") ? (
                 <Tag className="ml-xxs" color="orange" size={"small"}>
-                  有り
+                  Сонгосон
                 </Tag>
               ) : (
                 <Tag className="ml-xxs" color="brand" size={"small"}>
-                  全て
+                  Бүгд
                 </Tag>
               )}
             </Button>
@@ -167,7 +167,7 @@ export function ProductFilter() {
             content={
               <div className="w-fit">
                 <div className="pb-xxs border-b-[1px] border-b-brand flex gap-xs justify-between items-center">
-                  <Typography>公開日を選択してください</Typography>
+                  <Typography>Он сар</Typography>
                   <Select
                     options={[
                       { label: "今日", value: dayjs().toString() },
@@ -209,7 +209,7 @@ export function ProductFilter() {
                     size="small"
                     className="w-[100%]"
                   >
-                    クリア
+                    clear
                   </Button>
                 </div>
               </div>

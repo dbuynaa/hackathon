@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { Typography } from '@/components';
-import { Input } from 'antd';
-import { IoSearchOutline } from 'react-icons/io5';
-import { useSearchArray } from '@/utils/useSearchQuery';
-import { useSearchParams } from 'next/navigation';
-import useDebounce from '@/utils/useDebounce';
+import React, { useEffect, useState } from "react";
+import { Typography } from "@/components";
+import { Input } from "antd";
+import { IoSearchOutline } from "react-icons/io5";
+import { useSearchArray } from "@/utils/useSearchQuery";
+import { useSearchParams } from "next/navigation";
+import useDebounce from "@/utils/useDebounce";
 
 type Props = {
   title: string;
@@ -17,14 +17,14 @@ type Props = {
 export const TopSearchBanner = ({ title, count, subCategory }: Props) => {
   const onSearch = useSearchArray();
   const searchParams = useSearchParams();
-  const [text, setText] = useState(searchParams?.get('search'));
-  const debouncedSearchTerm = useDebounce(text || '', 500);
+  const [text, setText] = useState(searchParams?.get("search"));
+  const debouncedSearchTerm = useDebounce(text || "", 500);
 
   useEffect(() => {
     onSearch({
       search: text,
-      current: searchParams?.get('current'),
-      take: searchParams?.get('take'),
+      current: searchParams?.get("current"),
+      take: searchParams?.get("take"),
     });
   }, [debouncedSearchTerm]);
   return (
@@ -41,19 +41,17 @@ export const TopSearchBanner = ({ title, count, subCategory }: Props) => {
         className={`flex flex-col items-center max-w-screen-xl mx-auto gap-sm w-full`}
       >
         <Typography base="H5" weight="bold" className="text-white">
-          {title || ''}
+          {title || ""}
         </Typography>
         <Typography base="Subtitle2" weight="medium" className="text-white/70">
-          {`${
-            text || subCategory || title
-          }に関する情報を${count}件紹介しています`}
+          {`${text || subCategory || title}тухай мэдээлэл${count} ширхэг байна`}
         </Typography>
         <Input
           className="w-full flex text-subtitle2 items-center rounded-md  text-secondary  border-none max-w-[780px]"
-          placeholder="気になるワードを入力してください"
+          placeholder="Email - Name - ..."
           prefix={<IoSearchOutline className="flex text-h5 text-brand" />}
           onChange={(e) => setText(e.target.value)}
-          value={text || ''}
+          value={text || ""}
         />
       </div>
     </div>

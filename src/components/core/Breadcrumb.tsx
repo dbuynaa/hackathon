@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { styled } from 'styled-components';
-import { Breadcrumb as AntBreadcrumb, BreadcrumbProps } from 'antd';
-import { Typography } from '@/components';
-import { IoHomeOutline } from 'react-icons/io5';
+import { styled } from "styled-components";
+import { Breadcrumb as AntBreadcrumb, BreadcrumbProps } from "antd";
+import { Typography } from "@/components";
+import { IoHomeOutline } from "react-icons/io5";
 
 type Props = BreadcrumbProps & {
   title: string | string[];
-  separator?: 'slash' | 'dot' | 'arrow';
+  separator?: "slash" | "dot" | "arrow";
   item?: { title: string; link: string } | undefined;
   isHome?: boolean;
 };
@@ -26,11 +26,11 @@ export function Breadcrumb({
   ...props
 }: Props) {
   const Separator = () => {
-    let _sep = '/';
-    if (separator === 'slash') _sep = '/';
+    let _sep = "/";
+    if (separator === "slash") _sep = "/";
 
-    if (separator === 'dot') _sep = '・';
-    if (separator === 'arrow') _sep = '>';
+    if (separator === "dot") _sep = "・";
+    if (separator === "arrow") _sep = ">";
 
     return (
       <Typography className=" text-neutral-300" base="Caption">
@@ -51,11 +51,11 @@ export function Breadcrumb({
               <div className="flex flex-row gap-xxs px-tiny py-none items-center">
                 <IoHomeOutline className="text-secondary" size="16px" />
                 <Typography base="Body" className="text-secondary mt-micro">
-                  ホーム
+                  home
                 </Typography>
               </div>
             ),
-            href: '/',
+            href: "/",
           }),
         },
         { ...(item && { title: item.title, href: item.link }) },

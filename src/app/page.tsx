@@ -44,7 +44,7 @@ export default function Home() {
       <div className="flex px-sm md:px-lg flex-col p-md gap-md sm:gap-lg w-full max-w-screen-xl mx-auto">
         <div className="flex flex-row justify-between items-center  pb-xs2 border-b-2 border-brand">
           <Typography base="Subtitle" weight="bold" className="text-primary">
-            Компани
+            Бүтээгдэхүүн
           </Typography>
           <Button
             type="text"
@@ -55,7 +55,7 @@ export default function Home() {
             Дэлгэрэнгүй
           </Button>
         </div>
-        {newVendorLoading ? (
+        {newPostLoading ? (
           <div className="grid grid-cols-12 gap-sm md:gap-md xl:gap-lg">
             {[1, 2, 3, 4, 5, 6, 7]?.map((item, index) => {
               if (index === 0) {
@@ -115,7 +115,7 @@ export default function Home() {
       <div className="flex px-sm md:px-lg flex-col p-md gap-md sm:gap-lg w-full max-w-screen-xl mx-auto">
         <div className="flex flex-row justify-between items-center  pb-xs2 border-b-2 border-brand">
           <Typography base="Subtitle" weight="bold" className="text-primary">
-            Бүтээгдэхүүн
+            Компани
           </Typography>
           <Button
             type="text"
@@ -126,7 +126,7 @@ export default function Home() {
             Дэлгэрэнгүй
           </Button>
         </div>
-        {newPostLoading ? (
+        {newVendorLoading ? (
           <div className="grid grid-cols-12 gap-sm md:gap-md xl:gap-lg">
             {[1, 2, 3, 4, 5, 6, 7]?.map((item, index) => {
               if (index === 0) {
@@ -188,7 +188,7 @@ export default function Home() {
       <div className="flex px-sm md:px-lg flex-col p-md gap-md sm:gap-lg w-full max-w-screen-xl mx-auto">
         <div className="flex flex-row justify-between items-center pb-xs2 border-b-2 border-brand">
           <Typography base="Subtitle" weight="bold" className="text-primary">
-            特集記事
+            Онцлох
           </Typography>
           <Button
             type="text"

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Typography } from '@/components';
-import React from 'react';
+import { Typography } from "@/components";
+import React from "react";
 
 type Props = {
   title: string;
@@ -23,11 +23,11 @@ export const TopBanner = ({ title, count }: Props) => {
         className={`flex flex-col items-center max-w-screen-xl mx-auto gap-sm w-full`}
       >
         <Typography base="H5" weight="bold" className="text-white">
-          {title || ''}
+          {title || ""}
         </Typography>
-        <Typography base="Subtitle2" weight="medium" className="text-white/70">
-          {`${title}に関する情報を${count}件紹介しています`}
-        </Typography>
+        {/* <Typography base="Subtitle2" weight="medium" className="text-white/70">
+          {`${title}${count}件紹介しています`}
+        </Typography> */}
       </div>
     </div>
   );

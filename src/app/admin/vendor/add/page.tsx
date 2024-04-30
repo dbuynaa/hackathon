@@ -6,10 +6,7 @@ import { VendorCreateContainer } from "./components";
 
 export default function AdminVendorCreatePage() {
   return (
-    <AdminLayoutContainer
-      title="契約法人会員追加"
-      icon={<IoArrowBackOutline />}
-    >
+    <AdminLayoutContainer title="Байгууллага" icon={<IoArrowBackOutline />}>
       <VendorCreateContainer />
     </AdminLayoutContainer>
   );
