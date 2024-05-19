@@ -29,13 +29,40 @@ export type AuthVerify = {
 
 export type Category = {
   __typename?: 'Category';
-  children?: Maybe<Array<Maybe<Category>>>;
+  categoryCode?: Maybe<Scalars['String']['output']>;
   code: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   nameEn: Scalars['String']['output'];
   order: Scalars['String']['output'];
-  parentCode?: Maybe<Scalars['String']['output']>;
+  subCategory?: Maybe<Array<Maybe<Category>>>;
+};
+
+export type Companies = {
+  __typename?: 'Companies';
+  count?: Maybe<Scalars['Int']['output']>;
+  data?: Maybe<Array<Company>>;
+};
+
+export type Company = {
+  __typename?: 'Company';
+  email: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+};
+
+export type CompanyCreateInput = {
+  email: Scalars['String']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CompanyUpdateInput = {
+  email?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  products?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type CompanyWhereUniqueInput = {
+  id: Scalars['String']['input'];
 };
 
 export type LoginInput = {
@@ -54,7 +81,9 @@ export type MeAuth = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  ValidationDelete?: Maybe<Scalars['Boolean']['output']>;
+  companyCreate?: Maybe<Company>;
+  companyDelete?: Maybe<Scalars['Boolean']['output']>;
+  companyUpdate?: Maybe<Company>;
   login?: Maybe<AuthVerify>;
   logout?: Maybe<Scalars['Boolean']['output']>;
   productCreate?: Maybe<Product>;
@@ -64,16 +93,22 @@ export type Mutation = {
   userCreate?: Maybe<User>;
   userDelete?: Maybe<Scalars['Boolean']['output']>;
   userUpdate?: Maybe<User>;
-  validationCreate?: Maybe<Validation>;
-  validationUpdate?: Maybe<Validation>;
-  vendorCreate?: Maybe<Vendor>;
-  vendorDelete?: Maybe<Scalars['Boolean']['output']>;
-  vendorUpdate?: Maybe<Vendor>;
 };
 
 
-export type MutationValidationDeleteArgs = {
-  where: ValidationWhereUniqueInput;
+export type MutationCompanyCreateArgs = {
+  input: CompanyCreateInput;
+};
+
+
+export type MutationCompanyDeleteArgs = {
+  where: CompanyWhereUniqueInput;
+};
+
+
+export type MutationCompanyUpdateArgs = {
+  id: Scalars['String']['input'];
+  input: CompanyUpdateInput;
 };
 
 
@@ -112,54 +147,34 @@ export type MutationUserUpdateArgs = {
   input: UserUpdateInput;
 };
 
-
-export type MutationValidationCreateArgs = {
-  input: ValidationCreateInput;
-};
-
-
-export type MutationValidationUpdateArgs = {
-  id: Scalars['String']['input'];
-  input: ValidationCreateInput;
-};
-
-
-export type MutationVendorCreateArgs = {
-  input: VendorCreateInput;
-};
-
-
-export type MutationVendorDeleteArgs = {
-  where: VendorWhereUniqueInput;
-};
-
-
-export type MutationVendorUpdateArgs = {
-  id: Scalars['String']['input'];
-  input: VendorUpdateInput;
-};
-
 export type Product = {
   __typename?: 'Product';
-  Vendor?: Maybe<Vendor>;
-  auditer?: Maybe<User>;
+  author?: Maybe<User>;
   categories?: Maybe<Array<Maybe<Category>>>;
   createdAt: Scalars['DateTime']['output'];
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   image?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
-  status?: Maybe<Status>;
+  status?: Maybe<ProductStatusEnum>;
 };
 
 export type ProductCreateInput = {
-  children?: InputMaybe<Scalars['String']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
   description: Scalars['String']['input'];
   image?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
-  parent?: InputMaybe<Scalars['String']['input']>;
-  vendorId?: InputMaybe<Scalars['String']['input']>;
+  price?: InputMaybe<Scalars['Float']['input']>;
+  quantity?: InputMaybe<Scalars['Int']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+  subCategory?: InputMaybe<Scalars['String']['input']>;
 };
+
+export enum ProductStatusEnum {
+  DELETED = 'DELETED',
+  DRAFT = 'DRAFT',
+  PUBLISHED = 'PUBLISHED'
+}
 
 export type ProductWhereUniqueInput = {
   id: Scalars['String']['input'];
@@ -179,22 +194,25 @@ export type ProductsWhereInput = {
 
 export type Query = {
   __typename?: 'Query';
-  Validations?: Maybe<Validations>;
   categories?: Maybe<Array<Category>>;
+  companies?: Maybe<Companies>;
+  company?: Maybe<Company>;
   meAuth?: Maybe<MeAuth>;
   product?: Maybe<Product>;
   products?: Maybe<Products>;
   user?: Maybe<User>;
   users?: Maybe<Users>;
-  validation?: Maybe<Validation>;
-  vendor?: Maybe<Vendor>;
-  vendors?: Maybe<Vendors>;
 };
 
 
-export type QueryValidationsArgs = {
+export type QueryCompaniesArgs = {
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+};
+
+
+export type QueryCompanyArgs = {
+  where: CompanyWhereUniqueInput;
 };
 
 
@@ -220,34 +238,12 @@ export type QueryUsersArgs = {
   take: Scalars['Int']['input'];
 };
 
-
-export type QueryValidationArgs = {
-  where: ValidationWhereUniqueInput;
-};
-
-
-export type QueryVendorArgs = {
-  where: VendorWhereUniqueInput;
-};
-
-
-export type QueryVendorsArgs = {
-  skip: Scalars['Int']['input'];
-  take: Scalars['Int']['input'];
-};
-
 export type RegisterInput = {
   email: Scalars['String']['input'];
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
   role: UserRoleEnum;
 };
-
-export enum Status {
-  PENDING = 'PENDING',
-  UNVERIFIED = 'UNVERIFIED',
-  VERIFIED = 'VERIFIED'
-}
 
 export type User = {
   __typename?: 'User';
@@ -268,8 +264,11 @@ export type UserCreateInput = {
 
 export enum UserRoleEnum {
   ADMIN = 'ADMIN',
-  MANAGER = 'MANAGER',
-  STAFF = 'STAFF'
+  COMPANY_MANAGER = 'COMPANY_MANAGER',
+  COMPANY_OWNER = 'COMPANY_OWNER',
+  COMPANY_STUFF = 'COMPANY_STUFF',
+  CUSTOMER = 'CUSTOMER',
+  EDITOR = 'EDITOR'
 }
 
 export type UserUpdateInput = {
@@ -287,63 +286,6 @@ export type Users = {
   __typename?: 'Users';
   count?: Maybe<Scalars['Int']['output']>;
   data?: Maybe<Array<User>>;
-};
-
-export type Validation = {
-  __typename?: 'Validation';
-  author?: Maybe<User>;
-  content: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  image?: Maybe<Scalars['String']['output']>;
-  product?: Maybe<Array<Maybe<Product>>>;
-};
-
-export type ValidationCreateInput = {
-  content: Scalars['String']['input'];
-  image?: InputMaybe<Scalars['String']['input']>;
-  productsId?: InputMaybe<Array<Scalars['String']['input']>>;
-};
-
-export type ValidationWhereUniqueInput = {
-  id: Scalars['String']['input'];
-};
-
-export type Validations = {
-  __typename?: 'Validations';
-  count?: Maybe<Scalars['Int']['output']>;
-  data?: Maybe<Array<Validation>>;
-};
-
-export type Vendor = {
-  __typename?: 'Vendor';
-  contact: Scalars['String']['output'];
-  email: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-};
-
-export type VendorCreateInput = {
-  contact: Scalars['String']['input'];
-  email: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-};
-
-export type VendorUpdateInput = {
-  contact?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  products?: InputMaybe<Array<Scalars['String']['input']>>;
-};
-
-export type VendorWhereUniqueInput = {
-  id: Scalars['String']['input'];
-};
-
-export type Vendors = {
-  __typename?: 'Vendors';
-  count?: Maybe<Scalars['Int']['output']>;
-  data?: Maybe<Array<Vendor>>;
 };
 
 export type LoginMutationVariables = Exact<{
@@ -366,7 +308,29 @@ export type MeAuthQuery = { __typename?: 'Query', meAuth?: { __typename?: 'MeAut
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CategoriesQuery = { __typename?: 'Query', categories?: Array<{ __typename?: 'Category', name: string, nameEn: string, code: string, order: string, parentCode?: string | null, children?: Array<{ __typename?: 'Category', code: string, name: string, nameEn: string, order: string, parentCode?: string | null } | null> | null }> | null };
+export type CategoriesQuery = { __typename?: 'Query', categories?: Array<{ __typename?: 'Category', name: string, nameEn: string, code: string, order: string, categoryCode?: string | null, subCategory?: Array<{ __typename?: 'Category', code: string, name: string, nameEn: string, order: string, categoryCode?: string | null } | null> | null }> | null };
+
+export type CompanyCreateMutationVariables = Exact<{
+  input: CompanyCreateInput;
+}>;
+
+
+export type CompanyCreateMutation = { __typename?: 'Mutation', companyCreate?: { __typename?: 'Company', id: string } | null };
+
+export type CompanyUpdateMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+  input: CompanyUpdateInput;
+}>;
+
+
+export type CompanyUpdateMutation = { __typename?: 'Mutation', companyUpdate?: { __typename?: 'Company', id: string } | null };
+
+export type CompanyDeleteMutationVariables = Exact<{
+  where: CompanyWhereUniqueInput;
+}>;
+
+
+export type CompanyDeleteMutation = { __typename?: 'Mutation', companyDelete?: boolean | null };
 
 export type ProductCreateMutationVariables = Exact<{
   input: ProductCreateInput;
@@ -389,81 +353,14 @@ export type ProductsQueryVariables = Exact<{
 }>;
 
 
-export type ProductsQuery = { __typename?: 'Query', products?: { __typename?: 'Products', count?: number | null, data?: Array<{ __typename?: 'Product', status?: Status | null, createdAt: any, description: string, id: string, image?: string | null, name: string, auditer?: { __typename?: 'User', id: string, roleKey: string, name?: string | null, email: string } | null, categories?: Array<{ __typename?: 'Category', name: string, nameEn: string, order: string } | null> | null }> | null } | null };
+export type ProductsQuery = { __typename?: 'Query', products?: { __typename?: 'Products', count?: number | null, data?: Array<{ __typename?: 'Product', image?: string | null, id: string, name: string, status?: ProductStatusEnum | null, description: string, createdAt: any, author?: { __typename?: 'User', name?: string | null, email: string, id: string } | null, categories?: Array<{ __typename?: 'Category', code: string, name: string, nameEn: string, id: string } | null> | null }> | null } | null };
 
 export type ProductQueryVariables = Exact<{
   where: ProductWhereUniqueInput;
 }>;
 
 
-export type ProductQuery = { __typename?: 'Query', product?: { __typename?: 'Product', status?: Status | null, name: string, image?: string | null, id: string, description: string, createdAt: any, auditer?: { __typename?: 'User', name?: string | null, roleKey: string, email: string } | null, categories?: Array<{ __typename?: 'Category', name: string, nameEn: string, code: string } | null> | null, Vendor?: { __typename?: 'Vendor', id: string } | null } | null };
-
-export type ValidationCreateMutationVariables = Exact<{
-  input: ValidationCreateInput;
-}>;
-
-
-export type ValidationCreateMutation = { __typename?: 'Mutation', validationCreate?: { __typename?: 'Validation', id: string } | null };
-
-export type ValidationUpdateMutationVariables = Exact<{
-  validationUpdateId: Scalars['String']['input'];
-  input: ValidationCreateInput;
-}>;
-
-
-export type ValidationUpdateMutation = { __typename?: 'Mutation', validationUpdate?: { __typename?: 'Validation', id: string } | null };
-
-export type ValidationsQueryVariables = Exact<{
-  take: Scalars['Int']['input'];
-  skip: Scalars['Int']['input'];
-}>;
-
-
-export type ValidationsQuery = { __typename?: 'Query', Validations?: { __typename?: 'Validations', count?: number | null, data?: Array<{ __typename?: 'Validation', id: string, image?: string | null, content: string, author?: { __typename?: 'User', id: string, name?: string | null, email: string } | null, product?: Array<{ __typename?: 'Product', id: string, image?: string | null, name: string, status?: Status | null } | null> | null }> | null } | null };
-
-export type ValidationQueryVariables = Exact<{
-  where: ValidationWhereUniqueInput;
-}>;
-
-
-export type ValidationQuery = { __typename?: 'Query', validation?: { __typename?: 'Validation', id: string, image?: string | null, content: string, author?: { __typename?: 'User', id: string, name?: string | null, email: string } | null, product?: Array<{ __typename?: 'Product', id: string, image?: string | null, name: string, status?: Status | null } | null> | null } | null };
-
-export type VendorCreateMutationVariables = Exact<{
-  input: VendorCreateInput;
-}>;
-
-
-export type VendorCreateMutation = { __typename?: 'Mutation', vendorCreate?: { __typename?: 'Vendor', id: string, email: string, contact: string, name: string } | null };
-
-export type VendorUpdateMutationVariables = Exact<{
-  vendorUpdateId: Scalars['String']['input'];
-  input: VendorUpdateInput;
-}>;
-
-
-export type VendorUpdateMutation = { __typename?: 'Mutation', vendorUpdate?: { __typename?: 'Vendor', id: string } | null };
-
-export type VendorDeleteMutationVariables = Exact<{
-  where: VendorWhereUniqueInput;
-}>;
-
-
-export type VendorDeleteMutation = { __typename?: 'Mutation', vendorDelete?: boolean | null };
-
-export type VendorsQueryVariables = Exact<{
-  take: Scalars['Int']['input'];
-  skip: Scalars['Int']['input'];
-}>;
-
-
-export type VendorsQuery = { __typename?: 'Query', vendors?: { __typename?: 'Vendors', count?: number | null, data?: Array<{ __typename?: 'Vendor', name: string, contact: string, email: string }> | null } | null };
-
-export type VendorQueryVariables = Exact<{
-  where: VendorWhereUniqueInput;
-}>;
-
-
-export type VendorQuery = { __typename?: 'Query', vendor?: { __typename?: 'Vendor', id: string, email: string, name: string, contact: string } | null };
+export type ProductQuery = { __typename?: 'Query', product?: { __typename?: 'Product', id: string, name: string, image?: string | null, description: string, status?: ProductStatusEnum | null, createdAt: any, author?: { __typename?: 'User', id: string, email: string, name?: string | null } | null, categories?: Array<{ __typename?: 'Category', name: string, nameEn: string, id: string, code: string } | null> | null } | null };
 
 
 export const LoginDocument = gql`
@@ -583,13 +480,13 @@ export const CategoriesDocument = gql`
     nameEn
     code
     order
-    parentCode
-    children {
+    categoryCode
+    subCategory {
       code
       name
       nameEn
       order
-      parentCode
+      categoryCode
     }
   }
 }
@@ -621,6 +518,104 @@ export function useCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type CategoriesQueryHookResult = ReturnType<typeof useCategoriesQuery>;
 export type CategoriesLazyQueryHookResult = ReturnType<typeof useCategoriesLazyQuery>;
 export type CategoriesQueryResult = Apollo.QueryResult<CategoriesQuery, CategoriesQueryVariables>;
+export const CompanyCreateDocument = gql`
+    mutation companyCreate($input: CompanyCreateInput!) {
+  companyCreate(input: $input) {
+    id
+  }
+}
+    `;
+export type CompanyCreateMutationFn = Apollo.MutationFunction<CompanyCreateMutation, CompanyCreateMutationVariables>;
+
+/**
+ * __useCompanyCreateMutation__
+ *
+ * To run a mutation, you first call `useCompanyCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCompanyCreateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [companyCreateMutation, { data, loading, error }] = useCompanyCreateMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCompanyCreateMutation(baseOptions?: Apollo.MutationHookOptions<CompanyCreateMutation, CompanyCreateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CompanyCreateMutation, CompanyCreateMutationVariables>(CompanyCreateDocument, options);
+      }
+export type CompanyCreateMutationHookResult = ReturnType<typeof useCompanyCreateMutation>;
+export type CompanyCreateMutationResult = Apollo.MutationResult<CompanyCreateMutation>;
+export type CompanyCreateMutationOptions = Apollo.BaseMutationOptions<CompanyCreateMutation, CompanyCreateMutationVariables>;
+export const CompanyUpdateDocument = gql`
+    mutation companyUpdate($id: String!, $input: CompanyUpdateInput!) {
+  companyUpdate(id: $id, input: $input) {
+    id
+  }
+}
+    `;
+export type CompanyUpdateMutationFn = Apollo.MutationFunction<CompanyUpdateMutation, CompanyUpdateMutationVariables>;
+
+/**
+ * __useCompanyUpdateMutation__
+ *
+ * To run a mutation, you first call `useCompanyUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCompanyUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [companyUpdateMutation, { data, loading, error }] = useCompanyUpdateMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCompanyUpdateMutation(baseOptions?: Apollo.MutationHookOptions<CompanyUpdateMutation, CompanyUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CompanyUpdateMutation, CompanyUpdateMutationVariables>(CompanyUpdateDocument, options);
+      }
+export type CompanyUpdateMutationHookResult = ReturnType<typeof useCompanyUpdateMutation>;
+export type CompanyUpdateMutationResult = Apollo.MutationResult<CompanyUpdateMutation>;
+export type CompanyUpdateMutationOptions = Apollo.BaseMutationOptions<CompanyUpdateMutation, CompanyUpdateMutationVariables>;
+export const CompanyDeleteDocument = gql`
+    mutation companyDelete($where: CompanyWhereUniqueInput!) {
+  companyDelete(where: $where)
+}
+    `;
+export type CompanyDeleteMutationFn = Apollo.MutationFunction<CompanyDeleteMutation, CompanyDeleteMutationVariables>;
+
+/**
+ * __useCompanyDeleteMutation__
+ *
+ * To run a mutation, you first call `useCompanyDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCompanyDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [companyDeleteMutation, { data, loading, error }] = useCompanyDeleteMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useCompanyDeleteMutation(baseOptions?: Apollo.MutationHookOptions<CompanyDeleteMutation, CompanyDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CompanyDeleteMutation, CompanyDeleteMutationVariables>(CompanyDeleteDocument, options);
+      }
+export type CompanyDeleteMutationHookResult = ReturnType<typeof useCompanyDeleteMutation>;
+export type CompanyDeleteMutationResult = Apollo.MutationResult<CompanyDeleteMutation>;
+export type CompanyDeleteMutationOptions = Apollo.BaseMutationOptions<CompanyDeleteMutation, CompanyDeleteMutationVariables>;
 export const ProductCreateDocument = gql`
     mutation ProductCreate($input: ProductCreateInput!) {
   productCreate(input: $input) {
@@ -688,26 +683,26 @@ export type ProductDeleteMutationOptions = Apollo.BaseMutationOptions<ProductDel
 export const ProductsDocument = gql`
     query Products($take: Int!, $skip: Int!, $where: ProductsWhereInput) {
   products(take: $take, skip: $skip, where: $where) {
+    count
     data {
-      auditer {
-        id
-        roleKey
+      author {
         name
         email
+        id
       }
+      image
+      id
+      name
+      status
+      description
+      createdAt
       categories {
+        code
         name
         nameEn
-        order
+        id
       }
-      status
-      createdAt
-      description
-      id
-      image
-      name
     }
-    count
   }
 }
     `;
@@ -744,25 +739,23 @@ export type ProductsQueryResult = Apollo.QueryResult<ProductsQuery, ProductsQuer
 export const ProductDocument = gql`
     query Product($where: ProductWhereUniqueInput!) {
   product(where: $where) {
-    auditer {
-      name
-      roleKey
+    id
+    name
+    image
+    description
+    status
+    author {
+      id
       email
+      name
     }
     categories {
       name
       nameEn
+      id
       code
     }
-    status
-    name
-    image
-    id
-    description
     createdAt
-    Vendor {
-      id
-    }
   }
 }
     `;
@@ -794,350 +787,3 @@ export function useProductLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Pr
 export type ProductQueryHookResult = ReturnType<typeof useProductQuery>;
 export type ProductLazyQueryHookResult = ReturnType<typeof useProductLazyQuery>;
 export type ProductQueryResult = Apollo.QueryResult<ProductQuery, ProductQueryVariables>;
-export const ValidationCreateDocument = gql`
-    mutation ValidationCreate($input: ValidationCreateInput!) {
-  validationCreate(input: $input) {
-    id
-  }
-}
-    `;
-export type ValidationCreateMutationFn = Apollo.MutationFunction<ValidationCreateMutation, ValidationCreateMutationVariables>;
-
-/**
- * __useValidationCreateMutation__
- *
- * To run a mutation, you first call `useValidationCreateMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useValidationCreateMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [validationCreateMutation, { data, loading, error }] = useValidationCreateMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useValidationCreateMutation(baseOptions?: Apollo.MutationHookOptions<ValidationCreateMutation, ValidationCreateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<ValidationCreateMutation, ValidationCreateMutationVariables>(ValidationCreateDocument, options);
-      }
-export type ValidationCreateMutationHookResult = ReturnType<typeof useValidationCreateMutation>;
-export type ValidationCreateMutationResult = Apollo.MutationResult<ValidationCreateMutation>;
-export type ValidationCreateMutationOptions = Apollo.BaseMutationOptions<ValidationCreateMutation, ValidationCreateMutationVariables>;
-export const ValidationUpdateDocument = gql`
-    mutation ValidationUpdate($validationUpdateId: String!, $input: ValidationCreateInput!) {
-  validationUpdate(id: $validationUpdateId, input: $input) {
-    id
-  }
-}
-    `;
-export type ValidationUpdateMutationFn = Apollo.MutationFunction<ValidationUpdateMutation, ValidationUpdateMutationVariables>;
-
-/**
- * __useValidationUpdateMutation__
- *
- * To run a mutation, you first call `useValidationUpdateMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useValidationUpdateMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [validationUpdateMutation, { data, loading, error }] = useValidationUpdateMutation({
- *   variables: {
- *      validationUpdateId: // value for 'validationUpdateId'
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useValidationUpdateMutation(baseOptions?: Apollo.MutationHookOptions<ValidationUpdateMutation, ValidationUpdateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<ValidationUpdateMutation, ValidationUpdateMutationVariables>(ValidationUpdateDocument, options);
-      }
-export type ValidationUpdateMutationHookResult = ReturnType<typeof useValidationUpdateMutation>;
-export type ValidationUpdateMutationResult = Apollo.MutationResult<ValidationUpdateMutation>;
-export type ValidationUpdateMutationOptions = Apollo.BaseMutationOptions<ValidationUpdateMutation, ValidationUpdateMutationVariables>;
-export const ValidationsDocument = gql`
-    query Validations($take: Int!, $skip: Int!) {
-  Validations(take: $take, skip: $skip) {
-    count
-    data {
-      id
-      image
-      author {
-        id
-        name
-        email
-      }
-      content
-      product {
-        id
-        image
-        name
-        status
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useValidationsQuery__
- *
- * To run a query within a React component, call `useValidationsQuery` and pass it any options that fit your needs.
- * When your component renders, `useValidationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useValidationsQuery({
- *   variables: {
- *      take: // value for 'take'
- *      skip: // value for 'skip'
- *   },
- * });
- */
-export function useValidationsQuery(baseOptions: Apollo.QueryHookOptions<ValidationsQuery, ValidationsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ValidationsQuery, ValidationsQueryVariables>(ValidationsDocument, options);
-      }
-export function useValidationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ValidationsQuery, ValidationsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ValidationsQuery, ValidationsQueryVariables>(ValidationsDocument, options);
-        }
-export type ValidationsQueryHookResult = ReturnType<typeof useValidationsQuery>;
-export type ValidationsLazyQueryHookResult = ReturnType<typeof useValidationsLazyQuery>;
-export type ValidationsQueryResult = Apollo.QueryResult<ValidationsQuery, ValidationsQueryVariables>;
-export const ValidationDocument = gql`
-    query Validation($where: ValidationWhereUniqueInput!) {
-  validation(where: $where) {
-    id
-    image
-    author {
-      id
-      name
-      email
-    }
-    content
-    product {
-      id
-      image
-      name
-      status
-    }
-  }
-}
-    `;
-
-/**
- * __useValidationQuery__
- *
- * To run a query within a React component, call `useValidationQuery` and pass it any options that fit your needs.
- * When your component renders, `useValidationQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useValidationQuery({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useValidationQuery(baseOptions: Apollo.QueryHookOptions<ValidationQuery, ValidationQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ValidationQuery, ValidationQueryVariables>(ValidationDocument, options);
-      }
-export function useValidationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ValidationQuery, ValidationQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ValidationQuery, ValidationQueryVariables>(ValidationDocument, options);
-        }
-export type ValidationQueryHookResult = ReturnType<typeof useValidationQuery>;
-export type ValidationLazyQueryHookResult = ReturnType<typeof useValidationLazyQuery>;
-export type ValidationQueryResult = Apollo.QueryResult<ValidationQuery, ValidationQueryVariables>;
-export const VendorCreateDocument = gql`
-    mutation VendorCreate($input: VendorCreateInput!) {
-  vendorCreate(input: $input) {
-    id
-    email
-    contact
-    name
-  }
-}
-    `;
-export type VendorCreateMutationFn = Apollo.MutationFunction<VendorCreateMutation, VendorCreateMutationVariables>;
-
-/**
- * __useVendorCreateMutation__
- *
- * To run a mutation, you first call `useVendorCreateMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useVendorCreateMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [vendorCreateMutation, { data, loading, error }] = useVendorCreateMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useVendorCreateMutation(baseOptions?: Apollo.MutationHookOptions<VendorCreateMutation, VendorCreateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<VendorCreateMutation, VendorCreateMutationVariables>(VendorCreateDocument, options);
-      }
-export type VendorCreateMutationHookResult = ReturnType<typeof useVendorCreateMutation>;
-export type VendorCreateMutationResult = Apollo.MutationResult<VendorCreateMutation>;
-export type VendorCreateMutationOptions = Apollo.BaseMutationOptions<VendorCreateMutation, VendorCreateMutationVariables>;
-export const VendorUpdateDocument = gql`
-    mutation VendorUpdate($vendorUpdateId: String!, $input: VendorUpdateInput!) {
-  vendorUpdate(id: $vendorUpdateId, input: $input) {
-    id
-  }
-}
-    `;
-export type VendorUpdateMutationFn = Apollo.MutationFunction<VendorUpdateMutation, VendorUpdateMutationVariables>;
-
-/**
- * __useVendorUpdateMutation__
- *
- * To run a mutation, you first call `useVendorUpdateMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useVendorUpdateMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [vendorUpdateMutation, { data, loading, error }] = useVendorUpdateMutation({
- *   variables: {
- *      vendorUpdateId: // value for 'vendorUpdateId'
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useVendorUpdateMutation(baseOptions?: Apollo.MutationHookOptions<VendorUpdateMutation, VendorUpdateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<VendorUpdateMutation, VendorUpdateMutationVariables>(VendorUpdateDocument, options);
-      }
-export type VendorUpdateMutationHookResult = ReturnType<typeof useVendorUpdateMutation>;
-export type VendorUpdateMutationResult = Apollo.MutationResult<VendorUpdateMutation>;
-export type VendorUpdateMutationOptions = Apollo.BaseMutationOptions<VendorUpdateMutation, VendorUpdateMutationVariables>;
-export const VendorDeleteDocument = gql`
-    mutation VendorDelete($where: VendorWhereUniqueInput!) {
-  vendorDelete(where: $where)
-}
-    `;
-export type VendorDeleteMutationFn = Apollo.MutationFunction<VendorDeleteMutation, VendorDeleteMutationVariables>;
-
-/**
- * __useVendorDeleteMutation__
- *
- * To run a mutation, you first call `useVendorDeleteMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useVendorDeleteMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [vendorDeleteMutation, { data, loading, error }] = useVendorDeleteMutation({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useVendorDeleteMutation(baseOptions?: Apollo.MutationHookOptions<VendorDeleteMutation, VendorDeleteMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<VendorDeleteMutation, VendorDeleteMutationVariables>(VendorDeleteDocument, options);
-      }
-export type VendorDeleteMutationHookResult = ReturnType<typeof useVendorDeleteMutation>;
-export type VendorDeleteMutationResult = Apollo.MutationResult<VendorDeleteMutation>;
-export type VendorDeleteMutationOptions = Apollo.BaseMutationOptions<VendorDeleteMutation, VendorDeleteMutationVariables>;
-export const VendorsDocument = gql`
-    query Vendors($take: Int!, $skip: Int!) {
-  vendors(take: $take, skip: $skip) {
-    count
-    data {
-      name
-      contact
-      email
-    }
-  }
-}
-    `;
-
-/**
- * __useVendorsQuery__
- *
- * To run a query within a React component, call `useVendorsQuery` and pass it any options that fit your needs.
- * When your component renders, `useVendorsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useVendorsQuery({
- *   variables: {
- *      take: // value for 'take'
- *      skip: // value for 'skip'
- *   },
- * });
- */
-export function useVendorsQuery(baseOptions: Apollo.QueryHookOptions<VendorsQuery, VendorsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<VendorsQuery, VendorsQueryVariables>(VendorsDocument, options);
-      }
-export function useVendorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VendorsQuery, VendorsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<VendorsQuery, VendorsQueryVariables>(VendorsDocument, options);
-        }
-export type VendorsQueryHookResult = ReturnType<typeof useVendorsQuery>;
-export type VendorsLazyQueryHookResult = ReturnType<typeof useVendorsLazyQuery>;
-export type VendorsQueryResult = Apollo.QueryResult<VendorsQuery, VendorsQueryVariables>;
-export const VendorDocument = gql`
-    query Vendor($where: VendorWhereUniqueInput!) {
-  vendor(where: $where) {
-    id
-    email
-    name
-    contact
-  }
-}
-    `;
-
-/**
- * __useVendorQuery__
- *
- * To run a query within a React component, call `useVendorQuery` and pass it any options that fit your needs.
- * When your component renders, `useVendorQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useVendorQuery({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useVendorQuery(baseOptions: Apollo.QueryHookOptions<VendorQuery, VendorQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<VendorQuery, VendorQueryVariables>(VendorDocument, options);
-      }
-export function useVendorLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VendorQuery, VendorQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<VendorQuery, VendorQueryVariables>(VendorDocument, options);
-        }
-export type VendorQueryHookResult = ReturnType<typeof useVendorQuery>;
-export type VendorLazyQueryHookResult = ReturnType<typeof useVendorLazyQuery>;
-export type VendorQueryResult = Apollo.QueryResult<VendorQuery, VendorQueryVariables>;

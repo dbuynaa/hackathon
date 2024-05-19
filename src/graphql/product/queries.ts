@@ -3,26 +3,26 @@ import { gql } from "@apollo/client";
 export const PRODUCTS = gql`
   query Products($take: Int!, $skip: Int!, $where: ProductsWhereInput) {
     products(take: $take, skip: $skip, where: $where) {
+      count
       data {
-        auditer {
-          id
-          roleKey
+        author {
           name
           email
+          id
         }
+        image
+        id
+        name
+        status
+        description
+        createdAt
         categories {
+          code
           name
           nameEn
-          order
+          id
         }
-        status
-        createdAt
-        description
-        id
-        image
-        name
       }
-      count
     }
   }
 `;
@@ -30,25 +30,23 @@ export const PRODUCTS = gql`
 export const PRODUCT = gql`
   query Product($where: ProductWhereUniqueInput!) {
     product(where: $where) {
-      auditer {
-        name
-        roleKey
+      id
+      name
+      image
+      description
+      status
+      author {
+        id
         email
+        name
       }
       categories {
         name
         nameEn
+        id
         code
       }
-      status
-      name
-      image
-      id
-      description
       createdAt
-      Vendor {
-        id
-      }
     }
   }
 `;

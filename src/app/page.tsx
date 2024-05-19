@@ -17,11 +17,8 @@ import { IoArrowForwardOutline } from "react-icons/io5";
 
 // import utils
 import {
-  Category,
   Product,
-  useCategoriesQuery,
   useProductsQuery,
-  useVendorsQuery,
 } from "@/graphql/generated";
 
 export default function Home() {
@@ -32,13 +29,7 @@ export default function Home() {
       skip: parseInt("0"),
     },
   });
-  const { data: newVendors, loading: newVendorLoading } = useVendorsQuery({
-    fetchPolicy: "no-cache",
-    variables: {
-      take: parseInt("7"),
-      skip: parseInt("0"),
-    },
-  });
+
   return (
     <main>
       <div className="flex px-sm md:px-lg flex-col p-md gap-md sm:gap-lg w-full max-w-screen-xl mx-auto">

@@ -7,13 +7,13 @@ export const CATEGORIES = gql`
       nameEn
       code
       order
-      parentCode
-      children {
+      categoryCode
+      subCategory {
         code
         name
         nameEn
         order
-        parentCode
+        categoryCode
       }
     }
   }
